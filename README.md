@@ -123,3 +123,32 @@ var.resource_group_name
 
   Enter a value: default
 ```
+
+Error during the setup:
+
+```sh
+╷
+│ Error: local-exec provisioner error
+│ 
+│   with module.gitops_repo.module.gitops-repo.null_resource.repo,
+│   on .terraform/modules/gitops_repo.gitops-repo/main.tf line 31, in resource "null_resource" "repo":
+│   31:   provisioner "local-exec" {
+│ 
+│ Error running command '.terraform/modules/gitops_repo.gitops-repo/scripts/create-repo.sh '' '' 'iascable-vpc-openshift-argocd-gitops' 'false' 'i1gTSuETN6wl8gv7'
+│ 'false'': exit status 1. Output: Usage: create-repo.sh GIT_HOST ORG REPO [PUBLIC]
+│ 
+╵
+╷
+│ Error: External Program Execution Failed
+│ 
+│   with module.gitops_repo.module.setup_clis.data.external.setup-binaries,
+│   on .terraform/modules/gitops_repo.setup_clis/main.tf line 22, in data "external" "setup-binaries":
+│   22:   program = ["bash", "${path.module}/scripts/setup-binaries.sh"]
+│ 
+│ The data source received an unexpected error while attempting to execute the program.
+│ 
+│ Program: /bin/bash
+│ Error Message: Error downloading yq3 from https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
+│ 
+│ State: exit status 1
+```
