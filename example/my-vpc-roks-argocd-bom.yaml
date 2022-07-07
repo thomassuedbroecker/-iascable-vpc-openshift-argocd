@@ -1,0 +1,13 @@
+apiVersion: cloudnativetoolkit.dev/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: my-ibm-vpc-roks
+spec:
+  modules:
+    - name: ibm-vpc
+    - name: ibm-vpc-subnets
+    - name: ibm-vpc-gateways
+    - name: ibm-ocp-vpc
+      variables:
+        - name: worker_count
+          value: 1
