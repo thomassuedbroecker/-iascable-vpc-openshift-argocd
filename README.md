@@ -86,3 +86,40 @@ spec:
 iascable build -i my-vpc-roks-argocd-bom.yaml
 ```
 
+### Step 3: Execute the `terraform init` command
+
+Navigate to the `output/my-ibm-vpc-roks/terraform` folder and execute the `terraform init` command.
+
+```sh
+cd output/my-ibm-vpc-roks-argocd/terraform
+terraform init
+```
+
+### Step 4: Execute the `terraform apply`  command
+
+Execute the `terraform apply` command.
+
+```sh
+terraform apply -auto-approve
+```
+
+* Output:
+
+```sh
+var.gitops_repo_repo
+  The short name of the repository (i.e. the part after the org/group name)
+
+  Enter a value: iascable-vpc-openshift-argocd-gitops
+var.ibmcloud_api_key
+  The IBM Cloud api token
+
+  Enter a value: xxx
+var.region
+  The IBM Cloud region where the cluster will be/has been installed.
+
+  Enter a value: eu-de
+var.resource_group_name
+  The name of the resource group
+
+  Enter a value: default
+```
