@@ -60,6 +60,26 @@ spec:
     - name: gitops-console-link-job
 ```
 
+```yaml
+apiVersion: cloudnativetoolkit.dev/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: my-ibm-vpc-roks-argocd
+spec:
+  modules:
+    # Virtual Private Cloud
+    - name: ibm-vpc
+    - name: ibm-vpc-subnets
+    - name: ibm-vpc-gateways
+    # ROKS
+    - name: ibm-ocp-vpc
+      variables:
+        - name: worker_count
+          value: 1
+    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
+    - name: argocd-bootstrap
+```
+
 ### Step 2: Build the project based on Bill of Material BOM file
 
 ```sh

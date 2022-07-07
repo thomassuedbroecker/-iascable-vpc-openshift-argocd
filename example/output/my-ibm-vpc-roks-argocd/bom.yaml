@@ -2,40 +2,11 @@ apiVersion: cloudnativetoolkit.dev/v1alpha1
 kind: BillOfMaterial
 metadata:
   name: my-ibm-vpc-roks-argocd
-  labels:
-    type: software
-    code: '200'
-  annotations:
-    displayName: OpenShift GitOps Bootstrap
-    description: >-
-      Provisions OpenShift GitOps (ArgoCD) into an existing cluster and
-      bootstraps it to a gitops repository
 spec:
   modules:
-    - name: gitops-repo
-      alias: gitops_repo
-      version: v1.20.0
     - name: argocd-bootstrap
       alias: argocd-bootstrap
       version: v1.12.0
-      variables:
-        - name: create_webhook
-          value: true
-        - name: prefix
-          value: maximo
-    - name: gitops-cluster-config
-      alias: gitops-cluster-config
-      version: v1.0.0
-    - name: gitops-console-link-job
-      alias: gitops-console-link-job
-      version: v1.4.6
-    - name: gitops-namespace
-      alias: toolkit_namespace
-      version: v1.11.2
-      default: true
-      variables:
-        - name: name
-          value: toolkit
     - name: ibm-ocp-vpc
       alias: cluster
       version: v1.15.4
@@ -51,11 +22,11 @@ spec:
     - name: ibm-vpc-subnets
       alias: ibm-vpc-subnets
       version: v1.13.2
-    - name: ocp-login
-      alias: cluster1
-      version: v1.4.0
     - name: olm
       version: v1.3.2
+    - name: gitops-repo
+      alias: gitops_repo
+      version: v1.20.0
     - name: sealed-secret-cert
       version: v1.0.1
     - name: ibm-resource-group
@@ -65,6 +36,26 @@ spec:
       alias: cos
       version: v4.0.3
   variables:
+    - name: region
+      type: string
+      description: The IBM Cloud region where the cluster will be/has been installed.
+    - name: ibmcloud_api_key
+      type: string
+      description: The IBM Cloud api token
+    - name: worker_count
+      type: number
+      description: >-
+        The number of worker nodes that should be provisioned for classic
+        infrastructure
+      defaultValue: 1
+    - name: cluster_flavor
+      type: string
+      description: The machine type that will be provisioned for classic infrastructure
+      defaultValue: bx2.4x16
+    - name: ibm-vpc-subnets__count
+      type: number
+      description: The number of subnets that should be provisioned
+      defaultValue: 3
     - name: gitops_repo_host
       type: string
       description: >-
@@ -98,36 +89,6 @@ spec:
       description: >-
         The short name of the repository (i.e. the part after the org/group
         name)
-    - name: gitops-cluster-config_banner_text
-      type: string
-      description: The text that will appear in the top banner in the cluster
-    - name: region
-      type: string
-      description: The IBM Cloud region where the cluster will be/has been installed.
-    - name: ibmcloud_api_key
-      type: string
-      description: The IBM Cloud api token
-    - name: worker_count
-      type: number
-      description: >-
-        The number of worker nodes that should be provisioned for classic
-        infrastructure
-      defaultValue: 1
-    - name: cluster_flavor
-      type: string
-      description: The machine type that will be provisioned for classic infrastructure
-      defaultValue: bx2.4x16
-    - name: ibm-vpc-subnets__count
-      type: number
-      description: The number of subnets that should be provisioned
-      defaultValue: 3
-    - name: server_url
-      type: string
-      description: The url for the OpenShift api
-    - name: cluster1_login_token
-      type: string
-      description: Token used for authentication
-      sensitive: true
     - name: resource_group_name
       type: string
       description: The name of the resource group

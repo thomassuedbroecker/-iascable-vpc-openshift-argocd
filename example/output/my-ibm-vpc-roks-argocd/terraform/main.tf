@@ -43,20 +43,6 @@ module "cluster" {
   vpc_subnets = module.ibm-vpc-subnets.subnets
   worker_count = var.worker_count
 }
-module "cluster1" {
-  source = "github.com/cloud-native-toolkit/terraform-ocp-login?ref=v1.4.0"
-
-  ca_cert = var.cluster1_ca_cert
-  ca_cert_file = var.cluster1_ca_cert_file
-  cluster_version = var.cluster1_cluster_version
-  ingress_subdomain = var.cluster1_ingress_subdomain
-  login_password = var.cluster1_login_password
-  login_token = var.cluster1_login_token
-  login_user = var.cluster1_login_user
-  server_url = var.server_url
-  skip = var.cluster1_skip
-  tls_secret_name = var.cluster1_tls_secret_name
-}
 module "cos" {
   source = "cloud-native-toolkit/object-storage/ibm"
   version = "4.0.3"
@@ -89,28 +75,6 @@ module "gitops_repo" {
   token = var.gitops_repo_token
   type = var.gitops_repo_type
   username = var.gitops_repo_username
-}
-module "gitops-cluster-config" {
-  source = "github.com/cloud-native-toolkit/terraform-gitops-cluster-config?ref=v1.0.0"
-
-  banner_background_color = var.gitops-cluster-config_banner_background_color
-  banner_text = var.gitops-cluster-config_banner_text
-  banner_text_color = var.gitops-cluster-config_banner_text_color
-  git_credentials = module.gitops_repo.git_credentials
-  gitops_config = module.gitops_repo.gitops_config
-  namespace = module.toolkit_namespace.name
-  server_name = module.gitops_repo.server_name
-}
-module "gitops-console-link-job" {
-  source = "github.com/cloud-native-toolkit/terraform-gitops-console-link-job?ref=v1.4.6"
-
-  cluster_ingress_hostname = var.gitops-console-link-job_cluster_ingress_hostname
-  cluster_type = var.gitops-console-link-job_cluster_type
-  git_credentials = module.gitops_repo.git_credentials
-  gitops_config = module.gitops_repo.gitops_config
-  namespace = module.toolkit_namespace.name
-  server_name = module.gitops_repo.server_name
-  tls_secret_name = var.gitops-console-link-job_tls_secret_name
 }
 module "ibm-vpc" {
   source = "cloud-native-toolkit/vpc/ibm"
@@ -176,15 +140,4 @@ module "sealed-secret-cert" {
   cert_file = var.sealed-secret-cert_cert_file
   private_key = var.sealed-secret-cert_private_key
   private_key_file = var.sealed-secret-cert_private_key_file
-}
-module "toolkit_namespace" {
-  source = "github.com/cloud-native-toolkit/terraform-gitops-namespace?ref=v1.11.2"
-
-  argocd_namespace = var.toolkit_namespace_argocd_namespace
-  ci = var.toolkit_namespace_ci
-  create_operator_group = var.toolkit_namespace_create_operator_group
-  git_credentials = module.gitops_repo.git_credentials
-  gitops_config = module.gitops_repo.gitops_config
-  name = var.toolkit_namespace_name
-  server_name = module.gitops_repo.server_name
 }

@@ -1,3 +1,18 @@
+## region: The IBM Cloud region where the cluster will be/has been installed.
+#region=""
+
+## ibmcloud_api_key: The IBM Cloud api token
+#ibmcloud_api_key=""
+
+## worker_count: The number of worker nodes that should be provisioned for classic infrastructure
+#worker_count="1"
+
+## cluster_flavor: The machine type that will be provisioned for classic infrastructure
+#cluster_flavor="bx2.4x16"
+
+## ibm-vpc-subnets__count: The number of subnets that should be provisioned
+#ibm-vpc-subnets__count="3"
+
 ## gitops_repo_host: The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used.
 #gitops_repo_host=""
 
@@ -15,30 +30,6 @@
 
 ## gitops_repo_repo: The short name of the repository (i.e. the part after the org/group name)
 #gitops_repo_repo=""
-
-## gitops-cluster-config_banner_text: The text that will appear in the top banner in the cluster
-#gitops-cluster-config_banner_text=""
-
-## region: The IBM Cloud region where the cluster will be/has been installed.
-#region=""
-
-## ibmcloud_api_key: The IBM Cloud api token
-#ibmcloud_api_key=""
-
-## worker_count: The number of worker nodes that should be provisioned for classic infrastructure
-#worker_count="1"
-
-## cluster_flavor: The machine type that will be provisioned for classic infrastructure
-#cluster_flavor="bx2.4x16"
-
-## ibm-vpc-subnets__count: The number of subnets that should be provisioned
-#ibm-vpc-subnets__count="3"
-
-## server_url: The url for the OpenShift api
-#server_url=""
-
-## cluster1_login_token: Token used for authentication
-#cluster1_login_token=""
 
 ## resource_group_name: The name of the resource group
 #resource_group_name=""
