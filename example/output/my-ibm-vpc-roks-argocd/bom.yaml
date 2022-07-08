@@ -15,6 +15,8 @@ spec:
           value: GIT
         - name: gitops_repo_host
           value: github.com
+        - name: gitops_repo_repo
+          value: iascable-vpc-openshift-argocd-gitops
         - name: gitops_repo_project
           value: iascable-vpc-openshift-argocd-gitops
         - name: gitops_repo_server_name
