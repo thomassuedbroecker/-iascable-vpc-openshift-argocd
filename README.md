@@ -152,3 +152,34 @@ Error during the setup:
 │ 
 │ State: exit status 1
 ```
+
+### Step 5: Execute the `terraform destroy` command
+
+> Note: Ensure you didn't delete created files before.
+
+To destroy the provisioned resources, run the following:
+
+```sh
+terraform destroy -auto-approve
+```
+
+* Output interaction:
+
+```sh
+var.gitops_repo_repo
+  The short name of the repository (i.e. the part after the org/group name)
+
+  Enter a value: iascable-vpc-openshift-argocd-gitops
+var.ibmcloud_api_key
+  The IBM Cloud api token
+
+  Enter a value: xxx
+var.region
+  The IBM Cloud region where the cluster will be/has been installed.
+
+  Enter a value: eu-de
+var.resource_group_name
+  The name of the resource group
+
+  Enter a value: default
+```
