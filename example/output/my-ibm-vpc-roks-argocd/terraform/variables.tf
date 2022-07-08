@@ -144,7 +144,7 @@ variable "ibm-vpc-subnets_zone_offset" {
 variable "ibm-vpc-subnets__count" {
   type = number
   description = "The number of subnets that should be provisioned"
-  default = 3
+  default = 1
 }
 variable "ibm-vpc-subnets_label" {
   type = string
@@ -184,7 +184,7 @@ variable "gitops_repo_host" {
 variable "gitops_repo_type" {
   type = string
   description = "[Deprecated] The type of the hosted git repository."
-  default = ""
+  default = "GIT"
 }
 variable "gitops_repo_org" {
   type = string
@@ -199,7 +199,7 @@ variable "gitops_repo_project" {
 variable "gitops_repo_username" {
   type = string
   description = "The username of the user with access to the repository"
-  default = ""
+  default = "thomassuedbroecker"
 }
 variable "gitops_repo_token" {
   type = string
@@ -248,7 +248,7 @@ variable "gitops_repo_gitops_namespace" {
 variable "gitops_repo_server_name" {
   type = string
   description = "The name of the cluster that will be configured via gitops. This is used to separate the config by cluster"
-  default = "default"
+  default = "default_gitops"
 }
 variable "gitops_repo_strict" {
   type = bool
