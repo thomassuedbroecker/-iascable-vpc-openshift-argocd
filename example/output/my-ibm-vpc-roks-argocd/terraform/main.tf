@@ -56,7 +56,7 @@ module "cos" {
   tags = var.cos_tags == null ? null : jsondecode(var.cos_tags)
 }
 module "gitops_repo" {
-  source = "github.com/cloud-native-toolkit/terraform-tools-gitops?ref=v1.20.0"
+  source = "github.com/cloud-native-toolkit/terraform-tools-gitops?ref=v1.20.1"
 
   branch = var.gitops_repo_branch
   gitea_host = var.gitops_repo_gitea_host

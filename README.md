@@ -84,13 +84,59 @@ spec:
     - name: argocd-bootstrap
 ```
 
+* Third approach: 
+
+Now going to define some variable in the initial BOM file.
+
+```yaml
+apiVersion: cloudnativetoolkit.dev/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: my-ibm-vpc-roks-argocd
+spec:
+  modules:
+    # Virtual Private Cloud
+    - name: ibm-vpc
+      variables:
+      - name: ibm-vpc_name
+        value: "tsued-gitops-sample"
+    - name: ibm-vpc-subnets
+      variables:
+      - name: ibm-vpc-subnets_label
+        value: "tsued-gitops-sample"
+      - name: ibm-vpc-subnets__count
+        value: 1
+    - name: ibm-vpc-gateways
+    # ROKS
+    - name: ibm-ocp-vpc
+      variables:
+        - name: cluster_name
+          value: "tsued-gitops-sample"
+        - name: worker_count
+          value: 2
+        - name: region
+          value: "eu-de" 
+    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
+    - name: argocd-bootstrap
+      variables:
+        - name: gitops_repo_username
+          value: "thomassuedbroecker"
+        - name: gitops_repo_token
+        - name: gitops_repo_type
+          value: "GIT"
+        - name: gitops_repo_project
+          value: "iascable-vpc-openshift-argocd-gitops"
+        - name: gitops_repo_server_name
+          value: "tsued-gitops-sample"
+```
+
 ### Step 2: Build the project based on Bill of Material BOM file
 
 ```sh
 iascable build -i my-vpc-roks-argocd-bom.yaml
 ```
 
-Define the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file:
+Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file (for the second approach).
 
 | Variable | Type | Description | default |
 | --- | --- | --- | --- |

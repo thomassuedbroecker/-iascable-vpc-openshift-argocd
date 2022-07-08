@@ -1,11 +1,8 @@
-## region: The IBM Cloud region where the cluster will be/has been installed.
-#region=""
-
 ## ibmcloud_api_key: The IBM Cloud api token
 #ibmcloud_api_key=""
 
 ## worker_count: The number of worker nodes that should be provisioned for classic infrastructure
-#worker_count="1"
+#worker_count="2"
 
 ## cluster_flavor: The machine type that will be provisioned for classic infrastructure
 #cluster_flavor="bx2.4x16"
