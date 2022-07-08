@@ -1,0 +1,14 @@
+kind: BillOfMaterial
+metadata:
+  name: my-bom
+spec:
+  modules:
+    # Virtual Private Cloud
+    - name: ibm-vpc
+      variables:
+      - name: ibm-vpc_name
+        value: "tsued-gitops-sample"
+    - name: ibm-vpc-subnets
+      variables:
+      - name: ibm-vpc-subnets__count
+        value: 1

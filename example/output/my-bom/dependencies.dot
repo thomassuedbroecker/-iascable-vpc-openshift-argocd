@@ -1,0 +1,9 @@
+digraph {
+    rankdir="BT"
+    "ibm-vpc (ibm-vpc)" -> "resource_group (ibm-resource-group)"
+"ibm-vpc (ibm-vpc)"
+"resource_group (ibm-resource-group)"
+"ibm-vpc-subnets (ibm-vpc-subnets)" -> "resource_group (ibm-resource-group)"
+"ibm-vpc-subnets (ibm-vpc-subnets)" -> "ibm-vpc (ibm-vpc)"
+"ibm-vpc-subnets (ibm-vpc-subnets)"
+  }
