@@ -14,7 +14,9 @@ Verify the available Modules:
 
 ### Step 1: Write the Bill of Material BOM file
 
-Combine with additional modules
+Combine with additional modules:
+
+* Initial approach: 
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
@@ -60,6 +62,8 @@ spec:
     - name: gitops-console-link-job
 ```
 
+* Second approach: 
+
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
 kind: BillOfMaterial
@@ -86,7 +90,7 @@ spec:
 iascable build -i my-vpc-roks-argocd-bom.yaml
 ```
 
-Define the variables:
+Define the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file:
 
 | Variable | Type | Description | default |
 | --- | --- | --- | --- |
@@ -171,7 +175,7 @@ Execute the `terraform apply` command.
 terraform apply -auto-approve
 ```
 
-* Output:
+* Output for the initial approach:
 
 ```sh
 var.gitops_repo_repo
@@ -192,7 +196,7 @@ var.resource_group_name
   Enter a value: default
 ```
 
-Error during the setup:
+-> Error during the setup:
 
 ```sh
 ╷
@@ -219,6 +223,24 @@ Error during the setup:
 │ Error Message: Error downloading yq3 from https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
 │ 
 │ State: exit status 1
+```
+
+* Output for the second approach:
+
+```sh
+│ Error: local-exec provisioner error
+│ 
+│   with module.gitops_repo.null_resource.initialize_gitops,
+│   on .terraform/modules/gitops_repo/main.tf line 91, in resource "null_resource" "initialize_gitops":
+│   91:   provisioner "local-exec" {
+│ 
+│ Error running command '.terraform/modules/gitops_repo/scripts/initialize-gitops.sh
+│ 'github.com/thomassuedbroecker/iascable-vpc-openshift-argocd-gitops.git' 'openshift-gitops'
+│ 'default_gitops'': exit status 126. Output: Cloning into
+│ '/Users/thomassuedbroecker/Downloads/dev/iascable-vpc-openshift-argocd/example/output/my-ibm-vpc-roks-argocd/terraform/.tmp/gitops-repo/.tmpgitops'...
+│ .terraform/modules/gitops_repo/scripts/initialize-gitops.sh: line 57:
+│ /Users/thomassuedbroecker/Downloads/dev/iascable-vpc-openshift-argocd/example/output/my-ibm-vpc-roks-argocd/terraform/bin2/yq4:
+│ cannot execute binary file
 ```
 
 ### Step 5: Execute the `terraform destroy` command

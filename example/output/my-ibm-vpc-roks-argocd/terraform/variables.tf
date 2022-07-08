@@ -24,7 +24,7 @@ variable "cluster_name" {
 variable "worker_count" {
   type = number
   description = "The number of worker nodes that should be provisioned for classic infrastructure"
-  default = 1
+  default = 2
 }
 variable "cluster_flavor" {
   type = string
@@ -179,7 +179,7 @@ variable "ibm-vpc-subnets_tags" {
 variable "gitops_repo_host" {
   type = string
   description = "The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used."
-  default = ""
+  default = "github.com"
 }
 variable "gitops_repo_type" {
   type = string
@@ -189,12 +189,12 @@ variable "gitops_repo_type" {
 variable "gitops_repo_org" {
   type = string
   description = "The org/group where the git repository exists/will be provisioned. If the value is left blank then the username org will be used."
-  default = ""
+  default = "thomassuedbroecker"
 }
 variable "gitops_repo_project" {
   type = string
   description = "The project that will be used for the git repo. (Primarily used for Azure DevOps repos)"
-  default = ""
+  default = "iascable-vpc-openshift-argocd-gitops"
 }
 variable "gitops_repo_username" {
   type = string
@@ -204,7 +204,6 @@ variable "gitops_repo_username" {
 variable "gitops_repo_token" {
   type = string
   description = "The personal access token used to access the repository"
-  default = ""
 }
 variable "gitops_repo_gitea_host" {
   type = string
@@ -229,6 +228,7 @@ variable "gitops_repo_gitea_token" {
 variable "gitops_repo_repo" {
   type = string
   description = "The short name of the repository (i.e. the part after the org/group name)"
+  default = "iascable-vpc-openshift-argocd-gitops"
 }
 variable "gitops_repo_branch" {
   type = string
@@ -278,6 +278,7 @@ variable "sealed-secret-cert_private_key_file" {
 variable "resource_group_name" {
   type = string
   description = "The name of the resource group"
+  default = "default"
 }
 variable "resource_group_sync" {
   type = string
