@@ -55,3 +55,7 @@ example/output/my-ibm-vpc-roks-argocd/terraform/.tmp/sealed-secrets/kustomize/ku
 example/output/my-ibm-vpc-roks-argocd/terraform/.tmp/sealed-secrets/kustomize/kustomize
 example/output/my-ibm-vpc-roks-argocd/terraform/.tmp/tekton/tekton-values.yaml
 example/output/my-ibm-vpc-roks-argocd/terraform/bin2/kustomize
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/96a6df3c2d5ecbba1c691cfe2446af8397ed1a44de9af78059420cd200a5c8df_eu-de-cluster_admin_k8sconfig/admin-key.pem
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/96a6df3c2d5ecbba1c691cfe2446af8397ed1a44de9af78059420cd200a5c8df_eu-de-cluster_admin_k8sconfig/admin.pem
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/96a6df3c2d5ecbba1c691cfe2446af8397ed1a44de9af78059420cd200a5c8df_eu-de-cluster_admin_k8sconfig/config.yml
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/96a6df3c2d5ecbba1c691cfe2446af8397ed1a44de9af78059420cd200a5c8df_eu-de-cluster_k8sconfig/config.yml

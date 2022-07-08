@@ -88,6 +88,9 @@ spec:
 
 Now going to define some variable in the initial BOM file.
 
+I noticed that the variables **weren't** used in th variables file 
+`output/my-ibm-vpc-roks-argocd/terraform/variables.tf`.
+
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
 kind: BillOfMaterial
