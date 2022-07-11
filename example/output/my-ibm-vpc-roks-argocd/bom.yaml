@@ -52,7 +52,7 @@ spec:
       version: v1.3.2
     - name: gitops-repo
       alias: gitops_repo
-      version: v1.20.1
+      version: v1.20.2
     - name: sealed-secret-cert
       version: v1.0.1
     - name: ibm-resource-group

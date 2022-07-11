@@ -20,7 +20,7 @@ variable "ibmcloud_api_key" {
 variable "cluster_name" {
   type = string
   description = "The name of the cluster that will be created within the resource group"
-  default = "tsued-gitops-sample"
+  default = ""
 }
 variable "worker_count" {
   type = number
@@ -95,7 +95,7 @@ variable "cluster_login" {
 variable "ibm-vpc_name" {
   type = string
   description = "The name of the vpc instance"
-  default = "tsued-gitops-sample"
+  default = ""
 }
 variable "ibm-vpc_provision" {
   type = bool
@@ -145,7 +145,7 @@ variable "ibm-vpc-subnets_zone_offset" {
 variable "ibm-vpc-subnets__count" {
   type = number
   description = "The number of subnets that should be provisioned"
-  default = 1
+  default = 3
 }
 variable "ibm-vpc-subnets_label" {
   type = string
@@ -180,12 +180,12 @@ variable "ibm-vpc-subnets_tags" {
 variable "gitops_repo_host" {
   type = string
   description = "The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used."
-  default = "github.com"
+  default = ""
 }
 variable "gitops_repo_type" {
   type = string
   description = "[Deprecated] The type of the hosted git repository."
-  default = "GIT"
+  default = ""
 }
 variable "gitops_repo_org" {
   type = string
@@ -195,16 +195,17 @@ variable "gitops_repo_org" {
 variable "gitops_repo_project" {
   type = string
   description = "The project that will be used for the git repo. (Primarily used for Azure DevOps repos)"
-  default = "iascable-vpc-openshift-argocd-gitops"
+  default = ""
 }
 variable "gitops_repo_username" {
   type = string
   description = "The username of the user with access to the repository"
-  default = "thomassuedbroecker"
+  default = ""
 }
 variable "gitops_repo_token" {
   type = string
   description = "The personal access token used to access the repository"
+  default = ""
 }
 variable "gitops_repo_gitea_host" {
   type = string
@@ -229,7 +230,6 @@ variable "gitops_repo_gitea_token" {
 variable "gitops_repo_repo" {
   type = string
   description = "The short name of the repository (i.e. the part after the org/group name)"
-  default = "iascable-vpc-openshift-argocd-gitops"
 }
 variable "gitops_repo_branch" {
   type = string
@@ -249,7 +249,7 @@ variable "gitops_repo_gitops_namespace" {
 variable "gitops_repo_server_name" {
   type = string
   description = "The name of the cluster that will be configured via gitops. This is used to separate the config by cluster"
-  default = "tsued-gitops-sample"
+  default = "default"
 }
 variable "gitops_repo_strict" {
   type = bool
@@ -279,7 +279,6 @@ variable "sealed-secret-cert_private_key_file" {
 variable "resource_group_name" {
   type = string
   description = "The name of the resource group"
-  default = "default"
 }
 variable "resource_group_sync" {
   type = string

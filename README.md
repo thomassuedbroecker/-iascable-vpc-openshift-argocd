@@ -207,6 +207,106 @@ Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variabl
 | `cos_provision` | **bool** | Flag indicating that cos instance should be provisioned | **true** |
 | `"cos_label"` | **string** | The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service} | **"cos"** |
 
+### Step 2.1: Use `output/my-ibm-vpc-roks-argocd/apply.sh` to configure the terraform variables.
+
+The apply.sh scripts will create:
+
+* a tempoary `output/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
+* a `output/my-ibm-vpc-roks-argocd/variables.yaml` file
+* a `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file
+* a `output/my-ibm-vpc-roks-argocd/terraform/variables.tfvars` file
+* several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
+* it creates a GitHub private project which contains you ID for the `cloud native toolkit`
+
+```sh
+cd output/my-ibm-vpc-roks-argocd
+sh apply.sh
+```
+
+* Interactive output:
+
+```sh
+Provide a value for 'ibmcloud_api_key':
+  The IBM Cloud api token
+> XXXX
+Provide a value for 'worker_count':
+  The number of worker nodes that should be provisioned for classic infrastructure
+> (2) 2
+Provide a value for 'cluster_flavor':
+  The machine type that will be provisioned for classic infrastructure
+> (bx2.4x16) bx2.4x16
+Provide a value for 'ibm-vpc-subnets__count':
+  The number of subnets that should be provisioned
+> (3) 1
+Provide a value for 'gitops_repo_host':
+  The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used.
+> github.com
+Provide a value for 'gitops_repo_org':
+  The org/group where the git repository exists/will be provisioned. If the value is left blank then the username org will be used.
+> thomassuedbroecker
+Provide a value for 'gitops_repo_project':
+  The project that will be used for the git repo. (Primarily used for Azure DevOps repos)
+> https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd-gitops
+Provide a value for 'gitops_repo_username':
+  The username of the user with access to the repository
+> thomassuedbroecker
+Provide a value for 'gitops_repo_token':
+  The personal access token used to access the repository
+> XXX
+> thomassuedbroecker
+Provide a value for 'gitops_repo_token':
+  The personal access token used to access the repository
+> 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
+Provide a value for 'gitops_repo_repo':
+  The short name of the repository (i.e. the part after the org/group name)
+> thomassuedbroecker
+Provide a value for 'resource_group_name':
+  The name of the resource group
+> default
+```
+
+* Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
+
+> Be aware the `key information` is saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file!
+
+```sh
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+```
+
+* Output result:
+
+```sh
+╷
+│ Error: local-exec provisioner error
+│ 
+│   with module.gitops_repo.null_resource.initialize_gitops,
+│   on .terraform/modules/gitops_repo/main.tf line 91, in resource "null_resource" "initialize_gitops":
+│   91:   provisioner "local-exec" {
+│ 
+│ Error running command '.terraform/modules/gitops_repo/scripts/initialize-gitops.sh 'github.com/thomassuedbroecker/thomassuedbroecker.git'
+│ 'openshift-gitops' 'default'': exit status 126. Output: Cloning into
+│ '/Users/thomassuedbroecker/Downloads/dev/iascable-vpc-openshift-argocd/example/output/my-ibm-vpc-roks-argocd/terraform/.tmp/gitops-repo/.tmpgitops'...
+│ .terraform/modules/gitops_repo/scripts/initialize-gitops.sh: line 57:
+│ /Users/thomassuedbroecker/Downloads/dev/iascable-vpc-openshift-argocd/example/output/my-ibm-vpc-roks-argocd/terraform/bin2/yq4: cannot
+│ execute binary file
+
+```
+
+### Step Step 2.2: Use `output/my-ibm-vpc-roks-argocd/destroy.sh` to delete the instances
+
+* Output:
+
+It also delete the created private GitHub project.
+
+```sh
+Destroy complete! Resources: 89 destroyed.
+```
+
+
 ### Step 3: Execute the `terraform init` command
 
 Navigate to the `output/my-ibm-vpc-roks/terraform` folder and execute the `terraform init` command.
