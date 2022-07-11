@@ -4,7 +4,7 @@ metadata:
   name: my-ibm-vpc-roks-argocd
 spec:
   modules:
-    # Virtual Private Cloud
+    # Virtual Private Cloud - related
     - name: ibm-vpc
       variables:
       - name: ibm-vpc_name
@@ -16,7 +16,7 @@ spec:
       - name: ibm-vpc-subnets__count
         value: 1
     - name: ibm-vpc-gateways
-    # ROKS
+    # ROKS - related
     - name: ibm-ocp-vpc
       variables:
         - name: cluster_name
@@ -25,7 +25,7 @@ spec:
           value: 2
         - name: region
           value: "eu-de" 
-    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
+    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     - name: argocd-bootstrap
       variables:
         - name: gitops_repo_username
