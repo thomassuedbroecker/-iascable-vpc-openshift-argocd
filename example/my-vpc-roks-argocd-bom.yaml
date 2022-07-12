@@ -37,8 +37,6 @@ spec:
           value: "github.com"
         - name: gitops_repo_repo
           value: "iascable-vpc-openshift-argocd-gitops"
-        - name: gitops_repo_project
-          value: "https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd-gitops"
         - name: gitops_repo_server_name
           value: "tsued-gitops-sample"
           

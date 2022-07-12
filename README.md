@@ -14,82 +14,7 @@ Verify the available Modules:
 
 ### Step 1: Write the Bill of Material BOM file
 
-Combine with additional modules:
-
-* Initial approach: 
-
-```yaml
-apiVersion: cloudnativetoolkit.dev/v1alpha1
-kind: BillOfMaterial
-metadata:
-  name: my-ibm-vpc-roks-argocd
-  labels:
-    type: software
-    code: '200'
-  annotations:
-    displayName: OpenShift GitOps Bootstrap
-    description: Provisions OpenShift GitOps (ArgoCD) into an existing cluster and bootstraps it to a gitops repository
-spec:
-  modules:
-    # Virtual Private Cloud
-    - name: ibm-vpc
-    - name: ibm-vpc-subnets
-    - name: ibm-vpc-gateways
-    # ROKS
-    - name: ibm-ocp-vpc
-      variables:
-        - name: worker_count
-          value: 1  
-    # Login to existing OpenShift cluster
-    - name: ocp-login
-    # Create the GitOps Repo
-    - name: gitops-repo
-    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
-    - name: argocd-bootstrap
-      variables:
-        - name: create_webhook
-          value: true
-        - name: prefix
-          value: maximo
-    # Define namespace for the cloud native toolkit
-    - name: gitops-namespace
-      alias: toolkit_namespace
-      default: true
-      variables:
-        - name: name
-          value: toolkit
-    - name: gitops-cluster-config
-    - name: gitops-console-link-job
-```
-
-* Second approach: 
-
-```yaml
-apiVersion: cloudnativetoolkit.dev/v1alpha1
-kind: BillOfMaterial
-metadata:
-  name: my-ibm-vpc-roks-argocd
-spec:
-  modules:
-    # Virtual Private Cloud
-    - name: ibm-vpc
-    - name: ibm-vpc-subnets
-    - name: ibm-vpc-gateways
-    # ROKS
-    - name: ibm-ocp-vpc
-      variables:
-        - name: worker_count
-          value: 1
-    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
-    - name: argocd-bootstrap
-```
-
-* Third approach: 
-
-Now going to define some variable in the initial BOM file.
-
-I noticed that the variables **weren't** used in th variables file 
-`output/my-ibm-vpc-roks-argocd/terraform/variables.tf`.
+Combine terraform modules and define some variables in the initial BOM file.
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
@@ -133,7 +58,21 @@ spec:
           value: "tsued-gitops-sample"
 ```
 
-### Step 2: Build the project based on Bill of Material BOM file
+### Step 2: Install [colima](https://github.com/abiosoft/colima) container engine
+
+On macOS
+
+```sh
+brew install docker colima
+```
+
+### Step 3: Start [colima](https://github.com/abiosoft/colima)
+
+```sh
+colima start
+```
+
+### Step 3: Build the project based on Bill of Material `BOM` file
 
 ```sh
 iascable build -i my-vpc-roks-argocd-bom.yaml
@@ -206,6 +145,13 @@ Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variabl
 | `cos_plan` | **string** | The type of plan the service instance should run under (lite or standard) | **"standard"** |
 | `cos_provision` | **bool** | Flag indicating that cos instance should be provisioned | **true** |
 | `"cos_label"` | **string** | The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service} | **"cos"** |
+
+### Step 4: Start the tools container provided by the `IasCable`
+
+```sh
+cd output/my-ibm-vpc-roks-argocd
+sh launch.sh
+```
 
 ### Step 2.1: Use `output/my-ibm-vpc-roks-argocd/apply.sh` to configure the terraform variables.
 
@@ -294,6 +240,90 @@ Do you want to perform these actions?
 │ /Users/thomassuedbroecker/Downloads/dev/iascable-vpc-openshift-argocd/example/output/my-ibm-vpc-roks-argocd/terraform/bin2/yq4: cannot
 │ execute binary file
 
+```
+
+* Configuration
+
+```yaml 
+apiVersion: cloudnativetoolkit.dev/v1alpha1
+kind: BillOfMaterial
+metadata:
+  name: my-ibm-vpc-roks-argocd
+spec:
+  modules:
+    # Virtual Private Cloud - related
+    - name: ibm-vpc
+      variables:
+      - name: ibm-vpc_name
+        value: "tsued-gitops-sample"
+    - name: ibm-vpc-subnets
+      variables:
+      - name: ibm-vpc-subnets_label
+        value: "tsued-gitops-sample"
+      - name: ibm-vpc-subnets__count
+        value: 1
+    - name: ibm-vpc-gateways
+    # ROKS - related
+    - name: ibm-ocp-vpc
+      variables:
+        - name: cluster_name
+          value: "tsued-gitops-sample"
+        - name: worker_count
+          value: 2
+        - name: region
+          value: "eu-de" 
+    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
+    - name: argocd-bootstrap
+      variables:
+        - name: gitops_repo_username
+          value: "thomassuedbroecker"
+        - name: gitops_repo_token
+        - name: gitops_repo_type
+          value: "GIT"
+        - name: gitops_repo_host
+          value: "github.com"
+        - name: gitops_repo_repo
+          value: "iascable-vpc-openshift-argocd-gitops"
+        - name: gitops_repo_server_name
+          value: "tsued-gitops-sample"
+```
+
+* Interactive output:
+
+```sh
+Provide a value for 'ibmcloud_api_key':
+  The IBM Cloud api token
+> XXX
+Provide a value for 'worker_count':
+  The number of worker nodes that should be provisioned for classic infrastructure
+> (2) 
+Provide a value for 'cluster_flavor':
+  The machine type that will be provisioned for classic infrastructure
+> (bx2.4x16) 
+Provide a value for 'ibm-vpc-subnets__count':
+  The number of subnets that should be provisioned
+> (3) 1
+Provide a value for 'gitops_repo_host':
+  The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used.
+> github.com
+Provide a value for 'gitops_repo_org':
+  The org/group where the git repository exists/will be provisioned. If the value is left blank then the username org will be used.
+> thomassuedbroecker
+Provide a value for 'gitops_repo_project':
+  The project that will be used for the git repo. (Primarily used for Azure DevOps repos)
+> iascable-vpc-openshift-argocd-gitops
+Provide a value for 'gitops_repo_username':
+  The username of the user with access to the repository
+> thomassuedbroecker
+Provide a value for 'gitops_repo_token':
+  The personal access token used to access the repository
+> XXX
+Provide a value for 'gitops_repo_repo':
+  The short name of the repository (i.e. the part after the org/group name)
+> iascable-vpc-openshift-argocd-gitops
+Provide a value for 'resource_group_name':
+  The name of the resource group
+> default
 ```
 
 ### Step Step 2.2: Use `output/my-ibm-vpc-roks-argocd/destroy.sh` to delete the instances
