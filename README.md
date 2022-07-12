@@ -23,7 +23,7 @@ metadata:
   name: my-ibm-vpc-roks-argocd
 spec:
   modules:
-    # Virtual Private Cloud
+    # Virtual Private Cloud - related
     - name: ibm-vpc
       variables:
       - name: ibm-vpc_name
@@ -35,7 +35,7 @@ spec:
       - name: ibm-vpc-subnets__count
         value: 1
     - name: ibm-vpc-gateways
-    # ROKS
+    # ROKS - related
     - name: ibm-ocp-vpc
       variables:
         - name: cluster_name
@@ -44,16 +44,20 @@ spec:
           value: 2
         - name: region
           value: "eu-de" 
-    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD)
+    # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     - name: argocd-bootstrap
       variables:
         - name: gitops_repo_username
           value: "thomassuedbroecker"
+        - name: gitops_repo_org
+          value: "thomassuedbroecker"
         - name: gitops_repo_token
         - name: gitops_repo_type
           value: "GIT"
-        - name: gitops_repo_project
-          value: "iascable-vpc-openshift-argocd-gitops"
+        - name: gitops_repo_host
+          value: "github.com"
+        - name: gitops_repo_repo
+          value: "iascable-gitops"
         - name: gitops_repo_server_name
           value: "tsued-gitops-sample"
 ```
@@ -149,13 +153,21 @@ Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variabl
 ### Step 4: Start the tools container provided by the `IasCable`
 
 ```sh
-cd output/my-ibm-vpc-roks-argocd
+cd output
 sh launch.sh
 ```
 
-### Step 2.1: Use `output/my-ibm-vpc-roks-argocd/apply.sh` to configure the terraform variables.
+### Step 5: In the running container verify the mapped resources
 
-The apply.sh scripts will create:
+
+```sh
+~/src $ ls
+launch.sh               my-ibm-vpc-roks-argocd
+```
+
+### Step 6: Use `output/my-ibm-vpc-roks-argocd/apply.sh` to configure the terraform variables.
+
+The `apply.sh` scripts will create:
 
 * a tempoary `output/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
 * a `output/my-ibm-vpc-roks-argocd/variables.yaml` file
@@ -165,7 +177,7 @@ The apply.sh scripts will create:
 * it creates a GitHub private project which contains you ID for the `cloud native toolkit`
 
 ```sh
-cd output/my-ibm-vpc-roks-argocd
+cd my-ibm-vpc-roks-argocd
 sh apply.sh
 ```
 
@@ -192,7 +204,7 @@ Provide a value for 'gitops_repo_org':
 > thomassuedbroecker
 Provide a value for 'gitops_repo_project':
   The project that will be used for the git repo. (Primarily used for Azure DevOps repos)
-> https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd-gitops
+> iascable-gitops
 Provide a value for 'gitops_repo_username':
   The username of the user with access to the repository
 > thomassuedbroecker
@@ -216,6 +228,29 @@ Provide a value for 'resource_group_name':
 > Be aware the `key information` is saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file!
 
 ```sh
+Plan: 91 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Argument is deprecated
+│ 
+│   with module.argocd-bootstrap.module.bootstrap.module.setup_clis.random_string.uuid,
+│   on .terraform/modules/argocd-bootstrap.bootstrap.setup_clis/main.tf line 15, in resource "random_string" "uuid":
+│   15:   number  = false
+│ 
+│ Use numeric instead.
+│ 
+│ (and 27 more similar warnings elsewhere)
+╵
+╷
+│ Warning: Experimental feature "module_variable_optional_attrs" is active
+│ 
+│   on .terraform/modules/ibm-vpc-subnets/version.tf line 10, in terraform:
+│   10:   experiments = [module_variable_optional_attrs]
+│ 
+│ Experimental features are subject to breaking changes in future minor or patch releases, based on feedback.
+│ 
+│ If you have feedback on the design of this feature, please open a GitHub issue to discuss it.
+╵
+
 Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.

@@ -10,11 +10,13 @@ spec:
       - name: ibm-vpc_name
         value: "tsued-gitops-sample"
     - name: ibm-vpc-subnets
+      alias: ibm-vpc-subnets
+      version: v1.13.2
       variables:
-      - name: ibm-vpc-subnets_label
-        value: "tsued-gitops-sample"
-      - name: ibm-vpc-subnets__count
-        value: 1
+        - name: _count
+          value: 1
+        - name: _label
+          value: "tsued-gitops-sample"
     - name: ibm-vpc-gateways
     # ROKS - related
     - name: ibm-ocp-vpc
@@ -30,13 +32,15 @@ spec:
       variables:
         - name: gitops_repo_username
           value: "thomassuedbroecker"
+        - name: gitops_repo_org
+          value: "thomassuedbroecker"
         - name: gitops_repo_token
         - name: gitops_repo_type
           value: "GIT"
         - name: gitops_repo_host
           value: "github.com"
         - name: gitops_repo_repo
-          value: "iascable-vpc-openshift-argocd-gitops"
+          value: "iascable-gitops"
         - name: gitops_repo_server_name
           value: "tsued-gitops-sample"
           
