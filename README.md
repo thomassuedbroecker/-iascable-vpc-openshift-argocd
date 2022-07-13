@@ -34,6 +34,8 @@ metadata:
 spec:
   modules:
     # Virtual Private Cloud - related
+    # - subnets
+    # - gateways
     - name: ibm-vpc
       alias: ibm-vpc
       version: v1.16.0
@@ -50,6 +52,7 @@ spec:
           value: "tsued-gitops-sample"
     - name: ibm-vpc-gateways
     # ROKS - related
+    # - objectstorage
     - name: ibm-ocp-vpc
       alias: ibm-ocp-vpc
       version: v1.15.5
@@ -68,7 +71,11 @@ spec:
           value: "cos-tsued-gitops-sample"
         - name: resource_location
           value: "gobal"
+        - name: resource_group_name
+          value: "default" 
     # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
+    # - argocd
+    # - gitops
     - name: argocd-bootstrap
       alias: argocd-bootstrap
       version: v1.12.0
