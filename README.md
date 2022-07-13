@@ -57,6 +57,17 @@ spec:
         - name: tags
           value: ["tsuedro"]
     - name: ibm-vpc-gateways
+      alias: ibm-vpc-gateways
+      version: v1.9.0
+      variables:
+        - name: region
+          value: "eu-de"      
+    - name: ibm-resource-group
+      alias: ibm-resource-group
+      version: v3.3.0
+      variables:
+      - name: resource_group_name
+        value: "default"
     # ROKS - related
     # - objectstorage
     - name: ibm-ocp-vpc
@@ -76,13 +87,15 @@ spec:
       version: v4.0.3
       variables:
         - name: name
-          value: "cos-tsued-gitops-sample"
-        - name: resource_location
-          value: "gobal"
+          value: "cos_tsued_gitops"
         - name: resource_group_name
           value: "default"
         - name: tags
           value: ["tsuedro"]
+        - name: label
+          value: ["cos_tsued"]
+        #- name: resource_location
+        #  value: "gobal"
     # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     # - argocd
     # - gitops
@@ -232,6 +245,8 @@ sh apply.sh
 
 ```sh
 
+Variables can be provided in a yaml file passed as the first argument
+
 Provide a value for 'gitops-repo_host':
   The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used.
 > (github.com) 
@@ -243,7 +258,7 @@ Provide a value for 'gitops-repo_project':
 > (iascable-gitops) 
 Provide a value for 'gitops-repo_username':
   The username of the user with access to the repository
-> thomassuedbroecker
+> (thomassuedbroecker)
 Provide a value for 'gitops-repo_token':
   The personal access token used to access the repository
 > XXX
