@@ -101,6 +101,8 @@ spec:
           value: "GIT"
         - name: org
           value: "thomassuedbroecker"
+        - name: username
+          value: "thomassuedbroecker"
         - name: project
           value: "iascable-gitops"
         - name: repo
