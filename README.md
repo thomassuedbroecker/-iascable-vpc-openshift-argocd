@@ -11,10 +11,20 @@ Verify the available Modules:
     * Cluster Config [gitops-cluster-config](https://github.com/cloud-native-toolkit/terraform-gitops-cluster-config)
     * Console Link Job [gitops-console-link-job](https://github.com/cloud-native-toolkit/terraform-gitops-console-link-job)
 
+Additional modules:
 
-### Step 1: Write the Bill of Material BOM file
+    * [IBM VPC `ibm-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc)
+    * [IBM VPC Subnets `ibm-vpc-subnets`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-subnets)
+    * [IBM Cloud VPC Public Gateway `ibm-vpc-gateways`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-gateways)
+    * [IBM OpenShift VPC cluster `ibm-ocp-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-ocp-vpc)
+    * [IBM Object Storage `ibm-object-storage`](https://github.com/cloud-native-toolkit/terraform-ibm-object-storage)
 
-Combine terraform modules and define some variables in the initial BOM file.
+
+### Step 1: Write the Bill of Material `BOM` file
+
+Combine terraform modules and define some variables in the initial `BOM` file.
+
+> Note: When you going to use variables you must use the module variables.
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
@@ -25,41 +35,59 @@ spec:
   modules:
     # Virtual Private Cloud - related
     - name: ibm-vpc
+      alias: ibm-vpc
+      version: v1.16.0
       variables:
-      - name: ibm-vpc_name
+      - name: name
         value: "tsued-gitops-sample"
     - name: ibm-vpc-subnets
+      alias: ibm-vpc-subnets
+      version: v1.13.2
       variables:
-      - name: ibm-vpc-subnets_label
-        value: "tsued-gitops-sample"
-      - name: ibm-vpc-subnets__count
-        value: 1
+        - name: _count
+          value: 1
+        - name: name
+          value: "tsued-gitops-sample"
     - name: ibm-vpc-gateways
     # ROKS - related
     - name: ibm-ocp-vpc
+      alias: ibm-ocp-vpc
+      version: v1.15.5
       variables:
         - name: cluster_name
           value: "tsued-gitops-sample"
         - name: worker_count
           value: 2
         - name: region
-          value: "eu-de" 
+          value: "eu-de"
+    - name: ibm-object-storage
+      alias: ibm-object-storage
+      version: v4.0.3
+      variables:
+        - name: name
+          value: "cos-tsued-gitops-sample"
+        - name: resource_location
+          value: "gobal"
     # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     - name: argocd-bootstrap
+      alias: argocd-bootstrap
+      version: v1.12.0
       variables:
-        - name: gitops_repo_username
-          value: "thomassuedbroecker"
-        - name: gitops_repo_org
-          value: "thomassuedbroecker"
-        - name: gitops_repo_token
-        - name: gitops_repo_type
-          value: "GIT"
-        - name: gitops_repo_host
+        - name: repo_token
+    - name: gitops-repo
+      alias: gitops-repo
+      version: v1.20.2
+      variables:
+        - name: host
           value: "github.com"
-        - name: gitops_repo_repo
+        - name: type
+          value: "GIT"
+        - name: org
+          value: "thomassuedbroecker"
+        - name: project
           value: "iascable-gitops"
-        - name: gitops_repo_server_name
-          value: "tsued-gitops-sample"
+        - name: repo
+          value: "iascable-gitops"
 ```
 
 ### Step 2: Install [colima](https://github.com/abiosoft/colima) container engine
@@ -184,40 +212,35 @@ sh apply.sh
 * Interactive output:
 
 ```sh
-Provide a value for 'ibmcloud_api_key':
-  The IBM Cloud api token
-> XXXX
-Provide a value for 'worker_count':
-  The number of worker nodes that should be provisioned for classic infrastructure
-> (2) 2
-Provide a value for 'cluster_flavor':
-  The machine type that will be provisioned for classic infrastructure
-> (bx2.4x16) bx2.4x16
-Provide a value for 'ibm-vpc-subnets__count':
-  The number of subnets that should be provisioned
-> (3) 1
-Provide a value for 'gitops_repo_host':
+
+Provide a value for 'gitops-repo_host':
   The host for the git repository. The git host used can be a GitHub, GitHub Enterprise, Gitlab, Bitbucket, Gitea or Azure DevOps server. If the host is null assumes in-cluster Gitea instance will be used.
-> github.com
-Provide a value for 'gitops_repo_org':
+> (github.com) 
+Provide a value for 'gitops-repo_org':
   The org/group where the git repository exists/will be provisioned. If the value is left blank then the username org will be used.
-> thomassuedbroecker
-Provide a value for 'gitops_repo_project':
+> (thomassuedbroecker) 
+Provide a value for 'gitops-repo_project':
   The project that will be used for the git repo. (Primarily used for Azure DevOps repos)
-> iascable-gitops
-Provide a value for 'gitops_repo_username':
+> (iascable-gitops) 
+Provide a value for 'gitops-repo_username':
   The username of the user with access to the repository
 > thomassuedbroecker
-Provide a value for 'gitops_repo_token':
+Provide a value for 'gitops-repo_token':
   The personal access token used to access the repository
 > XXX
-> thomassuedbroecker
-Provide a value for 'gitops_repo_token':
-  The personal access token used to access the repository
-> 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
-Provide a value for 'gitops_repo_repo':
-  The short name of the repository (i.e. the part after the org/group name)
-> thomassuedbroecker
+Provide a value for 'ibmcloud_api_key':
+> XXX
+Provide a value for 'region':
+> eu-de
+Provide a value for 'worker_count':
+  The number of worker nodes that should be provisioned for classic infrastructure
+> (2) 
+Provide a value for 'ibm-ocp-vpc_flavor':
+  The machine type that will be provisioned for classic infrastructure
+> (bx2.4x16) 
+Provide a value for 'ibm-vpc-subnets__count':
+  The number of subnets that should be provisioned
+> (1) 
 Provide a value for 'resource_group_name':
   The name of the resource group
 > default
