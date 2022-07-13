@@ -42,6 +42,10 @@ spec:
       variables:
       - name: name
         value: "tsued-gitops-sample"
+      - name: tags
+        value: ["tsuedro"]
+      - name: region
+        value: "eu-de"
     - name: ibm-vpc-subnets
       alias: ibm-vpc-subnets
       version: v1.13.2
@@ -50,6 +54,8 @@ spec:
           value: 1
         - name: name
           value: "tsued-gitops-sample"
+        - name: tags
+          value: ["tsuedro"]
     - name: ibm-vpc-gateways
     # ROKS - related
     # - objectstorage
@@ -63,6 +69,8 @@ spec:
           value: 2
         - name: region
           value: "eu-de"
+        - name: tags
+          value: ["tsuedro"]
     - name: ibm-object-storage
       alias: ibm-object-storage
       version: v4.0.3
@@ -72,7 +80,9 @@ spec:
         - name: resource_location
           value: "gobal"
         - name: resource_group_name
-          value: "default" 
+          value: "default"
+        - name: tags
+          value: ["tsuedro"]
     # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     # - argocd
     # - gitops
