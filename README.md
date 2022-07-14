@@ -45,11 +45,11 @@ We have to major areas for our modules:
 1. `Configuration of GitOps`
 2. `IBM Cloud infrastructure`
 
-### 1. Configuration of GitOps related  
+### 1. Configuration of GitOps 
 
-    * IBM OpenShift login [ocp-login](https://github.com/cloud-native-toolkit/terraform-ocp-login) - login to existing OpenShift cluster
-    * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
-    * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
+  * IBM OpenShift login [ocp-login](https://github.com/cloud-native-toolkit/terraform-ocp-login) - login to existing OpenShift cluster
+  * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
+  * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
 
   
 ### 2. Cloud infrastructure/services resources related 
