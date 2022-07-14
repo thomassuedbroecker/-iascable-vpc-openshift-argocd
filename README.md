@@ -1,25 +1,27 @@
 # Use IasCable to create a VPC and a Red Hat OpenShift cluster with Argo CD installed on IBM Cloud
 
-The objective is to create an initial setup in an IBM Cloud environment for GitOps.
+Our objective is to create an initial setup in an IBM Cloud environment for GitOps.
 
-`Software Everywhere` and `IasCable` provide an awesome way to eliminate writing Terraform modules.
-We are going to reuse models form a catalog the framework does provide.
+The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for diffent clouds to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
 
-Surly we need to know the needed outline of the architecture depending on the cloud environment we are going to use, when we want  to customize the cloud resources.
+Surly, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
+
+As I said `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is need.
+
+> We will not write any Terraform code, we will only combine existing Terraform modules and configure them!
 
 In that scenario we will use IBM Cloud with a `Virtual Private Cloud` and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
 
 Steps to work with `Software Everywhere` and `IasCable`.
 
 1. Define a target outline of the architecture
-2. Identify the needed modules for target outline
-3. Write a customized `BOM`
+2. Identify the needed `Software Everywhere` Terraform modules for the target outline
+3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
 6. Depending on the container runtime you are going to use on your computer, you maybe have copy the project inside the running container because of access right restrictions. Because the project folder is mapped as a volume to the project.
 
-
-Let us first verify with modules we are going to use for owner custom `BOM`. This contains two topics initial `GitOps` configuration and setup a cloud infrastructure.
+Let us first verify with modules we are going to use for own custom `BOM`. This contains two topics first the initial `GitOps` configuration and second the setup a cloud infrastructure.
 
 * Configuration for GitOps related  
 
@@ -127,7 +129,7 @@ spec:
 
 ### Step 2: Install [colima](https://github.com/abiosoft/colima) container engine
 
-On macOS
+Example for an installation on macOS.
 
 ```sh
 brew install docker colima
@@ -310,23 +312,18 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
 
 
 
-### Step 2.2: Use `output/my-ibm-vpc-roks-argocd/destroy.sh` to delete the instances
+### Step 10 (inside the container): Destory create resources
+
+> Note: Ensure you didn't delete created files before.
+ 
+```sh
+sh helper-tools-execute-destroy-and-delete-backup.sh
+```
 
 * Output:
 
-It also delete the created private GitHub project.
+It also deleted the created private GitHub project.
 
 ```sh
 Destroy complete! Resources: 89 destroyed.
 ```
-
-### Step 5: Execute the `terraform destroy` command
-
-> Note: Ensure you didn't delete created files before.
-
-To destroy the provisioned resources, run the following:
-
-```sh
-terraform destroy -auto-approve
-```
-
