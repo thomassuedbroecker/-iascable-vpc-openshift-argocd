@@ -147,14 +147,38 @@ cd output
 sh launch.sh
 ```
 
-### Step 6: In the running container verify the mapped resources
+### Step 6 (inside the container): In the running container verify the mapped resources 
 
 ```sh
 ~/src $ ls
-launch.sh               my-ibm-vpc-roks-argocd
+helper-tools-create-container-workspace.sh
+helper-tools-execute-apply-and-backup-result.sh
+launch.sh
+my-ibm-vpc-roks-argocd
 ```
 
-### Step 6: Use `output/my-ibm-vpc-roks-argocd/apply.sh` to configure the terraform variables.
+### Step 7: Create a workspace folder in your container and copy your `IasCabel` project into it
+
+All these tasks are automated in the helper bash script I wrote.
+
+```sh
+sh helper-tools-create-container-workspace.sh
+ls ../workspace
+```
+
+* Output:
+
+You can see the copied `IasCable` project folder inside the container.
+
+```sh
+my-ibm-vpc-roks-argocd
+```
+
+### Step 7: Execute the `apply.sh` and backup the result in the mapped volume folder
+
+All these tasks are automated in the helper bash script I wrote.
+
+
 
 The `apply.sh` scripts will create:
 

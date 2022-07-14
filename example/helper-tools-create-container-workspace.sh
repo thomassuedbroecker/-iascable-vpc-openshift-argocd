@@ -14,6 +14,3 @@ mkdir ../workspace
 # 2. Copy project into the workspace
 cp -R ./${PROJECT_NAME} ../workspace
 cd ../workspace/${PROJECT_NAME}
-
-# 3. Execute apply
-sh apply.sh
