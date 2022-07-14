@@ -12,9 +12,13 @@ cd ../workspace/${PROJECT_NAME}
 
 # 2. Execute apply
 sh apply.sh
+ls ./terraform
 
-ls ../workspace/${PROJECT_NAME}/terraform
+# 3. Navigate to the mapped volume
+cd ../../
+cd src/{PROJECT_NAME}/terraform
 
-# 3. Backup execution in local project
-cp -R ../workspace/${PROJECT_NAME} ./src
-
+# 4. Delete backup
+rm -Rf bin2 
+rm clis-debug.log
+rm terraform.tfstate
