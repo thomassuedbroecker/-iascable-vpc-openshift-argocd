@@ -4,7 +4,7 @@ Our objective is to create an customized initial setup in an IBM Cloud environme
 
 The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for various clouds such as `IBM Cloud`, `AWS` or `Azure` to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
 
-Surly, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
+Surely, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
 As I said `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is needed.
 
