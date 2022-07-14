@@ -6,7 +6,7 @@ The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way
 
 Surly, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
-As I said `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is need.
+As I said `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is needed.
 
 > We will not write any Terraform code, we will only combine existing Terraform modules and configure them!
 
@@ -19,9 +19,9 @@ Here are the major steps:
 3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
-6. Depending on the container runtime you are going to use on your computer, you maybe have copy the project inside the running container because of access right restrictions. Because the project folder is mapped as a volume to the project.
-7. Apply the Terraform modules to create environment in IBM Cloud and backup Terraform configuration 
-8. Destroy the environment on IBM Cloud
+  > Note: Depending on the container runtime you are going to use on your computer, you maybe have copy the project inside the running container because of access right restrictions. Because the project folder is mapped as a volume to the project. That is the reason we I wrote some helper scripts in that GitHub project.
+6. Apply the Terraform modules to create environment in IBM Cloud and backup Terraform configuration 
+7. Destroy the environment on IBM Cloud
 
 ## 1. Define a target outline of the architecture
 
@@ -145,21 +145,18 @@ spec:
           value: "iascable-gitops"
 ```
 
-### Step 2: Install [colima](https://github.com/abiosoft/colima) container engine
+## 4. Use `IasCable` to create the scaffolding for a `IasCable` project
+
+### Step 1: Install [colima](https://github.com/abiosoft/colima) container engine and start the container engine
 
 Example for an installation on macOS.
 
 ```sh
 brew install docker colima
-```
-
-### Step 3: Start [colima](https://github.com/abiosoft/colima)
-
-```sh
 colima start
 ```
 
-### Step 4: Build the project based on Bill of Material `BOM` file
+### Step 2: Build the project based on Bill of Material `BOM` file
 
 ```sh
 iascable build -i my-vpc-roks-argocd-bom.yaml
@@ -173,7 +170,7 @@ Name: my-ibm-vpc-roks-argocd
 Writing output to: ./output
 ```
 
-### Step 5: Copy helper bash scripts into the output folder
+### Step 3: Copy helper bash scripts into the output folder
 
 ```sh
 cp helper-tools-create-container-workspace.sh ./output
@@ -181,14 +178,16 @@ cp helper-tools-execute-apply-and-backup-result.sh ./output
 cp helper-tools-execute-destroy-and-delete-backup.sh ./output
 ```
 
-### Step 6: Start the tools container provided by the `IasCable`
+### Step 4: Start the tools container provided by the `IasCable`
 
 ```sh
 cd output
 sh launch.sh
 ```
 
-### Step 7 (inside the container): In the running container verify the mapped resources 
+## 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
+
+### Step 1 (inside the container): In the running container verify the mapped resources 
 
 ```sh
 ~/src $ ls
@@ -198,7 +197,7 @@ launch.sh
 my-ibm-vpc-roks-argocd
 ```
 
-### Step 8 (inside the container): Create a workspace folder in your container and copy your `IasCabel` project into it
+### Step 2 (inside the container): Create a workspace folder in your container and copy your `IasCabel` project into it
 
 All these tasks are automated in the helper bash script I wrote.
 
@@ -215,7 +214,9 @@ You can see the copied `IasCable` project folder inside the container.
 my-ibm-vpc-roks-argocd
 ```
 
-### Step 9 (inside the container): Execute the `apply.sh` and backup the result into the mapped volume
+## 6. Apply the Terraform modules to create the environment in IBM Cloud and backup Terraform configuration 
+
+### Step 1 (inside the container): Execute the `apply.sh` and backup the result into the mapped volume
 
 All these tasks are automated in the helper bash script I wrote.
 
@@ -329,8 +330,9 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
 > Be aware the `key information` is saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! 
 
 
+## 7. Destroy the environment on IBM Cloud
 
-### Step 10 (inside the container): Destory create resources
+### Step 1 (inside the container): Destory create resources
 
 > Note: Ensure you didn't delete created files before.
  
