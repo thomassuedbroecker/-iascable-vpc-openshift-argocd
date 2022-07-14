@@ -23,6 +23,17 @@ Here are the major steps:
 7. Apply the Terraform modules to create environment in IBM Cloud and backup Terraform configuration 
 8. Destroy the environment on IBM Cloud
 
+## 1. Define a target outline of the architecture
+
+This is our simplified target architecture for our objective to create an customized initial setup in an IBM Cloud environment for GitOps.
+
+* Configuration of `GitOps` in `Red Hat OpenShift`
+
+  ![](images/SoftwareEverywhere-GitOps.drawio.png)
+
+* `IBM Cloud infrastructure` with `Red Hat OpenShift` in a `Virtual Private Cloud` 
+
+  ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
 ## 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
 
@@ -31,17 +42,15 @@ terrafrom modules we are going to use for own custom `BOM`.
 
 We have to major areas for our modules:
 
-1. `Configuration for GitOps related`
-2. `Setup the IBM Cloud infrastructure`.
+1. `Configuration of GitOps`
+2. `IBM Cloud infrastructure`
 
-### 1. Configuration for GitOps related  
+### 1. Configuration of GitOps related  
 
     * IBM OpenShift login [ocp-login](https://github.com/cloud-native-toolkit/terraform-ocp-login) - login to existing OpenShift cluster
     * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
     * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
 
-    * Related simplified architecture
-    ![](images/SoftwareEverywhere-GitOps.drawio.png)
   
 ### 2. Cloud infrastructure/services resources related 
 
@@ -50,9 +59,6 @@ We have to major areas for our modules:
   * [IBM Cloud VPC Public Gateway `ibm-vpc-gateways`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-gateways)
   * [IBM OpenShift VPC cluster `ibm-ocp-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-ocp-vpc)
   * [IBM Object Storage `ibm-object-storage`](https://github.com/cloud-native-toolkit/terraform-ibm-object-storage)
-
-  * Related simplified architecture
-   ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
 ## 3. Write a customized `BOM` to combine the modules
 
