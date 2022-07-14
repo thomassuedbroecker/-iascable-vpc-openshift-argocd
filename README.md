@@ -2,7 +2,7 @@
 
 Our objective is to create an customized initial setup in an IBM Cloud environment for GitOps.
 
-The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for diffent clouds to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
+The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for various clouds such as `IBM Cloud`, `AWS` or `Azure` to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
 
 Surly, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
