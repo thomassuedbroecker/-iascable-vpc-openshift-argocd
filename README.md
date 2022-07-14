@@ -2,7 +2,21 @@
 
 The objective is to create an initial setup in an IBM Cloud environment for GitOps.
 
-There for we use in that scenario a `Virtual Private Cloud`  and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
+`Software Everywhere` and `IasCable` provide an awesome way to eliminate writing Terraform modules.
+We are going to reuse models form a catalog the framework does provide.
+
+Surly we need to know the needed outline of the architecture depending on the cloud environment we are going to use, when we want  to customize the cloud resources.
+
+In that scenario we will use IBM Cloud with a `Virtual Private Cloud` and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
+
+Steps to work with `Software Everywhere` and `IasCable`.
+
+1. Define a target outline of the architecture
+2. Identify the needed modules for target outline
+3. Write a customized `BOM`
+4. Use `IasCable` to create the scaffolding for a `IasCable` project
+5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
+6. Depending on the container runtime you are going to use on your computer, you maybe have copy the project inside the running container because of access right restrictions. Because the project folder is mapped as a volume to the project.
 
 
 Let us first verify with modules we are going to use for owner custom `BOM`. This contains two topics initial `GitOps` configuration and setup a cloud infrastructure.
@@ -13,7 +27,7 @@ Let us first verify with modules we are going to use for owner custom `BOM`. Thi
     * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
     * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
 
-    * Related simpfilied architecture
+    * Related simplified architecture
     ![](images/SoftwareEverywhere-GitOps.drawio.png)
   
 * Cloud infrastructure/services resources related modules
@@ -24,15 +38,15 @@ Let us first verify with modules we are going to use for owner custom `BOM`. Thi
   * [IBM OpenShift VPC cluster `ibm-ocp-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-ocp-vpc)
   * [IBM Object Storage `ibm-object-storage`](https://github.com/cloud-native-toolkit/terraform-ibm-object-storage)
 
-  * Related simpfilied architecture
+  * Related simplified architecture
    ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
 
 ### Step 1: Write the Bill of Material `BOM` file
 
-Combine terraform modules and define some variables in the initial `BOM` file.
+Combine Terraform modules and define some variables in the initial `BOM` file.
 
-> Note: When you going to use variables you must use the module variables.
+> Note: When you going to use variables, keep in mind you must use the name of the variables defined in the module and use `alias: ibm-vpc` to define the prefix.
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
@@ -285,7 +299,7 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
 
      * `Red Hat OpenShift GitOps` operator and `Red Hat OpenShift Pipelines`  operator
       ![](images/cluster-configuration-01-operators.png)
-    * `GitHub` project as ArgoCD respository
+    * `GitHub` project as ArgoCD repository
       ![](images/cluster-configuration-02-github-project.png)
     * Preconfigure ArgoCD project
       ![](images/cluster-configuration-03-argocd-project.png)
