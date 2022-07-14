@@ -32,7 +32,7 @@ spec:
       alias: ibm-ocp-vpc
       version: v1.15.5
       variables:
-        - name: cluster_name
+        - name: name
           value: "tsued-gitops"
         - name: worker_count
           value: 2

@@ -1,23 +1,31 @@
 # Use IasCable to create a VPC and a Red Hat OpenShift cluster with Argo CD installed on IBM Cloud
 
-Verify the available Modules:
+The objective is to create an initial setup in an IBM Cloud environment for GitOps.
 
-* Example BOM [https://github.com/cloud-native-toolkit/automation-solutions/blob/main/boms/software/gitops/200-openshift-gitops.yaml] which is linked to following modules: 
-    
+There for we use in that scenario a `Virtual Private Cloud`  and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
+
+
+Let us first verify with modules we are going to use for owner custom `BOM`. This contains two topics initial `GitOps` configuration and setup a cloud infrastructure.
+
+* Configuration for GitOps related  
+
     * IBM OpenShift login [ocp-login](https://github.com/cloud-native-toolkit/terraform-ocp-login) - login to existing OpenShift cluster
     * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
-    * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-argocd-bootstrap)
-    * Namespace [gitops-namespace](https://github.com/cloud-native-toolkit/terraform-gitops-namespace)
-    * Cluster Config [gitops-cluster-config](https://github.com/cloud-native-toolkit/terraform-gitops-cluster-config)
-    * Console Link Job [gitops-console-link-job](https://github.com/cloud-native-toolkit/terraform-gitops-console-link-job)
+    * ArgoCD Bootstrap [argocd-bootstrap](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
 
-Additional modules:
+    * Related simpfilied architecture
+
+   ![](images/SoftwareEverywhere-GitOps.drawio.png)
+  
+* Infrastructure related modules
 
   * [IBM VPC `ibm-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc)
   * [IBM VPC Subnets `ibm-vpc-subnets`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-subnets)
   * [IBM Cloud VPC Public Gateway `ibm-vpc-gateways`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-gateways)
   * [IBM OpenShift VPC cluster `ibm-ocp-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-ocp-vpc)
   * [IBM Object Storage `ibm-object-storage`](https://github.com/cloud-native-toolkit/terraform-ibm-object-storage)
+
+   ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
 
 ### Step 1: Write the Bill of Material `BOM` file
@@ -61,7 +69,7 @@ spec:
       alias: ibm-ocp-vpc
       version: v1.15.5
       variables:
-        - name: cluster_name
+        - name: name
           value: "tsued-gitops"
         - name: worker_count
           value: 2
@@ -133,7 +141,7 @@ Writing output to: ./output
 
 Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file (for the second approach).
 
-### Step 4: Copy helper bash scipts into the output folder
+### Step 4: Copy helper bash scripts into the output folder
 
 ```sh
 cp helper-tools-create-container-workspace.sh ./output
@@ -157,7 +165,7 @@ launch.sh
 my-ibm-vpc-roks-argocd
 ```
 
-### Step 7: Create a workspace folder in your container and copy your `IasCabel` project into it
+### Step 7 (inside the container): Create a workspace folder in your container and copy your `IasCabel` project into it
 
 All these tasks are automated in the helper bash script I wrote.
 
@@ -174,13 +182,14 @@ You can see the copied `IasCable` project folder inside the container.
 my-ibm-vpc-roks-argocd
 ```
 
-### Step 7: Execute the `apply.sh` and backup the result in the mapped volume folder
+### Step 7 (inside the container): Execute the `apply.sh` and backup the result into the mapped volume
 
-All these tasks are automated in the helper bash script I wrote.
+```sh
+sh helper-tools-execute-apply-and-backup-result.sh
+ls ../workspace
+```
 
-
-
-The `apply.sh` scripts will create:
+The `apply.sh` script will create:
 
 * a tempoary `output/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
 * a `output/my-ibm-vpc-roks-argocd/variables.yaml` file

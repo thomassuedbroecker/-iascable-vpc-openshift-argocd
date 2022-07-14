@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # ************************************
-# To executed in the `tool container`!
+#  To be executed in the `tool container`!
 # ************************************
 
 # Basic global variables
 PROJECT_NAME="my-ibm-vpc-roks-argocd"
 
 # 1. Create a workspace folder
+pwd
 ls 
 mkdir ../workspace
 
