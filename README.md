@@ -1,6 +1,6 @@
 # Use IasCable to create a VPC and a Red Hat OpenShift cluster with Argo CD installed on IBM Cloud
 
-Our objective is to create an initial setup in an IBM Cloud environment for GitOps.
+Our objective is to create an customized initial setup in an IBM Cloud environment for GitOps.
 
 The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for diffent clouds to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
 
@@ -12,7 +12,7 @@ As I said `Software Everywhere` catalog does provide  the reuse of existing Terr
 
 In that scenario we will use IBM Cloud with a `Virtual Private Cloud` and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
 
-Steps to work with `Software Everywhere` and `IasCable`.
+Here are the major steps:
 
 1. Define a target outline of the architecture
 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
@@ -20,10 +20,21 @@ Steps to work with `Software Everywhere` and `IasCable`.
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
 6. Depending on the container runtime you are going to use on your computer, you maybe have copy the project inside the running container because of access right restrictions. Because the project folder is mapped as a volume to the project.
+7. Apply the Terraform modules to create environment in IBM Cloud and backup Terraform configuration 
+8. Destroy the environment on IBM Cloud
 
-Let us first verify with modules we are going to use for own custom `BOM`. This contains two topics first the initial `GitOps` configuration and second the setup a cloud infrastructure.
 
-* Configuration for GitOps related  
+## 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
+
+Let us first define which `Software Everywhere` 
+terrafrom modules we are going to use for own custom `BOM`. 
+
+We have to major areas for our modules:
+
+1. `Configuration for GitOps related`
+2. `Setup the IBM Cloud infrastructure`.
+
+### 1. Configuration for GitOps related  
 
     * IBM OpenShift login [ocp-login](https://github.com/cloud-native-toolkit/terraform-ocp-login) - login to existing OpenShift cluster
     * GitOps repo [gitops-repo](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
@@ -32,7 +43,7 @@ Let us first verify with modules we are going to use for own custom `BOM`. This 
     * Related simplified architecture
     ![](images/SoftwareEverywhere-GitOps.drawio.png)
   
-* Cloud infrastructure/services resources related modules
+### 2. Cloud infrastructure/services resources related 
 
   * [IBM VPC `ibm-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc)
   * [IBM VPC Subnets `ibm-vpc-subnets`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc-subnets)
@@ -43,12 +54,13 @@ Let us first verify with modules we are going to use for own custom `BOM`. This 
   * Related simplified architecture
    ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
+## 3. Write a customized `BOM` to combine the modules
 
 ### Step 1: Write the Bill of Material `BOM` file
 
 Combine Terraform modules and define some variables in the initial `BOM` file.
 
-> Note: When you going to use variables, keep in mind you must use the name of the variables defined in the module and use `alias: ibm-vpc` to define the prefix.
+> Note: When we going to use variables, we must keep in mind that we must use the name of the variables defined in the Terraform modules and use `alias: ibm-vpc` to define the prefix.
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
