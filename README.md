@@ -44,8 +44,6 @@ spec:
         value: "tsued-gitops-sample"
       - name: tags
         value: ["tsuedro"]
-    #  - name: region
-    #    value: "eu-de"
     - name: ibm-vpc-subnets
       alias: ibm-vpc-subnets
       version: v1.13.2
@@ -57,17 +55,6 @@ spec:
         - name: tags
           value: ["tsuedro"]
     - name: ibm-vpc-gateways
-      # alias: ibm-vpc-gateways
-      # version: v1.9.0
-      # variables:
-        # - name: region
-        #   value: "eu-de"      
-    # - name: ibm-resource-group
-    #  alias: ibm-resource-group
-    #  version: v3.3.0
-    #  variables:
-    #  - name: resource_group_name
-    #    value: "default"
     # ROKS - related
     # - objectstorage
     - name: ibm-ocp-vpc
@@ -80,8 +67,6 @@ spec:
           value: 2
         - name: tags
           value: ["tsuedro"]
-        # - name: region
-        #  value: "eu-de"
     - name: ibm-object-storage
       alias: ibm-object-storage
       version: v4.0.3
@@ -92,10 +77,6 @@ spec:
           value: ["tsuedro"]
         - name: label
           value: ["cos_tsued"]
-        # - name: resource_group_name
-        #   value: "default"
-        #- name: resource_location
-        #  value: "gobal"
     # Install OpenShift GitOps and Bootstrap GitOps (aka. ArgoCD) - related
     # - argocd
     # - gitops
@@ -142,18 +123,31 @@ colima start
 iascable build -i my-vpc-roks-argocd-bom.yaml
 ```
 
+* Output:
+
+```sh
+Loading catalog from url: https://modules.cloudnativetoolkit.dev/index.yaml
+Name: my-ibm-vpc-roks-argocd
+Writing output to: ./output
+```
+
 Defined in the variables in the `output/my-ibm-vpc-roks-argocd/terraform/variables.tf` file (for the second approach).
 
+### Step 4: Copy helper bash scipts into the output folder
 
-### Step 4: Start the tools container provided by the `IasCable`
+```sh
+cp helper-tools-create-container-workspace.sh ./output
+cp helper-tools-execute-apply-and-backup-result.sh ./output
+```
+
+### Step 5: Start the tools container provided by the `IasCable`
 
 ```sh
 cd output
 sh launch.sh
 ```
 
-### Step 5: In the running container verify the mapped resources
-
+### Step 6: In the running container verify the mapped resources
 
 ```sh
 ~/src $ ls
