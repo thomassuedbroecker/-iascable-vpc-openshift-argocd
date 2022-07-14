@@ -6,7 +6,7 @@ The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way
 
 Surely, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
-As I said `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is needed.
+As I said the `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is needed.
 
 > We will not write any Terraform code, we will only combine existing Terraform modules and configure them!
 
