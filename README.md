@@ -1,6 +1,6 @@
 # Use IasCable to create a VPC and a Red Hat OpenShift cluster with Argo CD installed on IBM Cloud
 
-Our objective is to create a customized initial setup in an IBM Cloud environment for GitOps.
+Our objective is to create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/).
 
 The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) framework and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform moduls which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
 
