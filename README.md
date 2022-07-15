@@ -15,7 +15,7 @@ In that scenario we will use [`IBM Cloud`](https://cloud.ibm.com/login) with a [
 These are the major sections:
 
 1. Define an outline of the target architecture
-2. Identify the needed `Software Everywhere` Terraform modules for the target outline
+2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
@@ -45,7 +45,7 @@ This is our simplified target architecture for our objective to create a customi
 
   ![](images/SoftwareEverywhere-OpenShift-Infrastructure.drawio.png)
 
-## 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
+## 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 
 Let us first define which `Software Everywhere` 
 Terraform modules we are going to use for own custom `BOM`. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
