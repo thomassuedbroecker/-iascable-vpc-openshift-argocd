@@ -217,7 +217,7 @@ cp helper-tools-execute-destroy-and-delete-backup.sh ./output
 
 ### Step 4: Start the tools container provided by the `IasCable`
 
-> Note: At the moment we need to touch the `launch.sh` script.
+> Note: At the moment we need to change and save the `launch.sh` script a bit.
 
 1. Open the `launch.sh` script.
 
@@ -230,21 +230,21 @@ nano launch.sh
 
 * Before
 
-```sh
-${DOCKER_CMD} run -itd --name ${CONTAINER_NAME}    -u "${UID}"    -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
-```
+  ```sh
+  ${DOCKER_CMD} run -itd --name ${CONTAINER_NAME}    -u "${UID}"    -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
+  ```
 
 * After the change
 
-```sh
-${DOCKER_CMD} run -itd --name ${CONTAINER_NAME} -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
-```
+  ```sh
+  ${DOCKER_CMD} run -itd --name ${CONTAINER_NAME} -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
+  ```
 
 3. Execute the `launch.sh` script
 
-```sh
-sh launch.sh
-```
+  ```sh
+  sh launch.sh
+  ```
 
 ## 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
 
