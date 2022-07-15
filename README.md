@@ -1,4 +1,4 @@
-# Use IasCable to create a VPC and a Red Hat OpenShift cluster with Argo CD installed on IBM Cloud
+# Use `Software Everywhere` and `IasCable` to setup `GitOps` on a `Red Hat OpenShift Cluster` in a `Virtual Private Cloud` on `IBM Cloud`
 
 Our objective is to create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/).
 
