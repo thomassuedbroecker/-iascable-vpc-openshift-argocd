@@ -18,7 +18,7 @@ These are the major sections:
 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
-5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
+5. Use the tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
   > Note: Depending on the container runtime you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is the reason why I wrote some helper scripts to simplify the copy and deletion of the Terraform code mapped to the local volume of our computer. You can find the in the current helper bash automation script in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example).
 6. Apply the Terraform modules to create the environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) to the local computer.
 7. Destroy the environment on IBM Cloud.
@@ -249,7 +249,7 @@ nano launch.sh
   sh launch.sh
   ```
 
-## 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
+## 5. Use the tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
 
 ### Step 1 (inside the container): In the running container verify the mapped resources 
 
