@@ -63,3 +63,7 @@ example/output/my-ibm-vpc-roks-argocd/terraform/.kube/f4514bf6e0c757db60b72f40a4
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/f4514bf6e0c757db60b72f40a4b118f139f95492506a5e568cb205a66d3b6bce_tsued-gitops-sample_admin_k8sconfig/admin.pem
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/f4514bf6e0c757db60b72f40a4b118f139f95492506a5e568cb205a66d3b6bce_tsued-gitops-sample_admin_k8sconfig/config.yml
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/f4514bf6e0c757db60b72f40a4b118f139f95492506a5e568cb205a66d3b6bce_tsued-gitops-sample_k8sconfig/config.yml
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_admin_k8sconfig/admin-key.pem
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_admin_k8sconfig/admin.pem
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_admin_k8sconfig/config.yml
+example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_k8sconfig/config.yml

@@ -6,10 +6,14 @@
 
 # Basic global variables
 PROJECT_NAME="my-ibm-vpc-roks-argocd"
-WORKSPACES_PATH="/workspaces"
+WORKSPACES_PATH="/home/devops/workspace"
 MAPPED_VOLUME_PATH="/terraform"
 
-# 1. Copy project into the workspace
-cp -R ./${PROJECT_NAME} ${WORKSPACES_PATH}
-cp ./${PROJECT_NAME}/*.* ${WORKSPACES_PATH}
+# 1. Create workspace
+mkdir ${WORKSPACES_PATH}
+mkdir ${WORKSPACES_PATH}/${PROJECT_NAME}
+
+# 2. Copy project into the workspace
+cp -R . ${WORKSPACES_PATH}
+cp ./${PROJECT_NAME}/*.* ${WORKSPACES_PATH}/${PROJECT_NAME}
 cd ${WORKSPACES_PATH}/${PROJECT_NAME}

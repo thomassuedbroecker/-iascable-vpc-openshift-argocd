@@ -4,8 +4,9 @@
 # To be executed in the `tool container`!
 # ************************************
 
+# Basic global variables
 PROJECT_NAME="my-ibm-vpc-roks-argocd"
-WORKSPACES_PATH="/workspaces"
+WORKSPACES_PATH="/home/devops/workspace"
 MAPPED_VOLUME_PATH="/terraform"
 
 # 1. Navigate to workspace

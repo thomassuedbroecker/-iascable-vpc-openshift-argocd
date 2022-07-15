@@ -2,7 +2,7 @@
 
 Our objective is to create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/).
 
-The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform moduls which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform modules which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
 
 Surely, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
@@ -12,7 +12,7 @@ As I said the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit
 
 In that scenario we will use [`IBM Cloud`](https://cloud.ibm.com/login) with a [`Virtual Private Cloud`](https://www.ibm.com/cloud/learn/vpc) and a [`Red Hat OpenShift cluster`](https://www.ibm.com/cloud/openshift) with [`Argo CD installed`](https://github.com/redhat-developer/gitops-operator) and integrated with a GitHub project.
 
-Here are the major steps:
+These are the major sections:
 
 1. Define a target outline of the architecture
 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
@@ -20,19 +20,20 @@ Here are the major steps:
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
   > Note: Depending on the container runtime you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is reason why I wrote some helper scripts to simplify the copy and deletion of the resource mapped to a local volume in the current [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example).
-6. Apply the Terraform modules to create environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) informatino
-7. Destroy the environment on IBM Cloud
+6. Apply the Terraform modules to create the environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) to the local computer.
+7. Destroy the environment on IBM Cloud.
+8. Summary
 
 ## 1. Define a target outline of the architecture
 
-This is our simplified target architecture for our objective to create an customized initial setup in an IBM Cloud environment for GitOps.
+This is our simplified target architecture for our objective to create a customized setup in an IBM Cloud environment for GitOps.
 
 * Configuration of `GitOps` in `Red Hat OpenShift`
   
   We will use two operators: 
   * [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator)
 
-    * We will create one [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) with the [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator) operator, that [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) will bin initial configured by an newly created GitHub project configure by a [Cloud Native Toolkit template](https://github.com/cloud-native-toolkit/terraform-tools-gitops/tree/main/template) for GitOps repositories.
+    * We will create one [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) with the [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator) operator, that [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) will bin initial configured by a newly created GitHub project configure by a [Cloud Native Toolkit template](https://github.com/cloud-native-toolkit/terraform-tools-gitops/tree/main/template) for GitOps repositories.
 
   * [Red at OpenShift Pipelines operator](https://catalog.redhat.com/software/operators/detail/5ec54a4628834587a6b85ca5). 
 
@@ -47,7 +48,7 @@ This is our simplified target architecture for our objective to create an custom
 ## 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
 
 Let us first define which `Software Everywhere` 
-terrafrom modules we are going to use for own custom `BOM`. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
+Terraform modules we are going to use for own custom `BOM`. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
 
 In our case we have to major areas for `Terraform` modules we want to use:
 
@@ -216,8 +217,32 @@ cp helper-tools-execute-destroy-and-delete-backup.sh ./output
 
 ### Step 4: Start the tools container provided by the `IasCable`
 
+> Note: At the moment we need to touch the `launch.sh` script.
+
+1. Open the `launch.sh` script.
+
 ```sh
 cd output
+nano launch.sh
+```
+
+2. Delete the `-u "${UID}"` parameter
+
+* Before
+
+```sh
+${DOCKER_CMD} run -itd --name ${CONTAINER_NAME}    -u "${UID}"    -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
+```
+
+* After the change
+
+```sh
+${DOCKER_CMD} run -itd --name ${CONTAINER_NAME} -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
+```
+
+3. Execute the `launch.sh` script
+
+```sh
 sh launch.sh
 ```
 
@@ -234,13 +259,13 @@ launch.sh
 my-ibm-vpc-roks-argocd
 ```
 
-### Step 2 (inside the container): Create a workspace folder in your container and copy your `IasCabel` project into it
+### Step 2 (inside the container): Create a workspace folder in your container and copy your `IasCable` project into it
 
 All these tasks are automated in the helper bash script I wrote.
 
 ```sh
 sh helper-tools-create-container-workspace.sh
-ls ../workspace
+ls /workspaces
 ```
 
 * Output:
@@ -384,5 +409,10 @@ sh helper-tools-execute-destroy-and-delete-backup.sh
 It also deleted the created private GitHub project.
 
 ```sh
-Destroy complete! Resources: 89 destroyed.
+Destroy complete! Resources: 91 destroyed.
 ```
+
+## 8. Summary
+
+
+
