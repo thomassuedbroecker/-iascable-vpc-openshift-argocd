@@ -73,9 +73,9 @@ In our case we have two major areas for `Terraform` modules we want to use:
 
 ### Step 1: Write the Bill of Material `BOM` file
 
-Combine Terraform modules and define some variables in the initial `BOM` file.
+Now we combine the existing `Terraform` modules and we define some of the variables in the `BOM` file which we going to specif.
 
-> Note: When we going to use variables, we must keep in mind that we must use the name of the variables defined in the Terraform modules and use `alias: ibm-vpc` to define the prefix.
+> Note: When we going to use variables, we must keep in mind that we need to use the name of the variables defined in the `Terraform modules` and should use `alias: ibm-vpc` to define as prefix in the `BOM` file.
 
 The `BOM` is divided in 3 main sections.
 
