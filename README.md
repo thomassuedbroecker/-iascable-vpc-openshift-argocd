@@ -84,6 +84,9 @@ The `BOM` is divided in 3 main sections.
 * Red Hat OpenShift Cluster (ROKS)
 * GitOps
 
+We need to create an [IBM Cloud API key](https://www.ibm.com/docs/en/app-connect/containers_cd?topic=servers-creating-cloud-api-key) and an [Personal Access Token for the GitHub account](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
 kind: BillOfMaterial
@@ -403,17 +406,25 @@ The invoked `apply.sh` script will create:
 
 ## 7. Destroy the environment on IBM Cloud
 
-### Step 1 (inside the container): Destory create resources
+### Step 1 (inside the container): Destory the created IBM Cloud resources
 
-> Note: Ensure you didn't delete created files before.
+All these tasks are automated in the helper bash script I wrote.
+
+> Note: Ensure you didn't delete created `Terraform` files before.
  
 ```sh
 sh helper-tools-execute-destroy-and-delete-backup.sh
 ```
+* The script [helper-tools-execute-destroy-and-delete-backup.sh](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-execute-destroy-and-delete-backup.sh) does following:
+
+  1. Navigate to workspace
+  2. Execute destroy.sh
+  3. Navigate to the mapped volume
+  4. Copy the current state to the mapped volume
 
 * Output:
 
-It also deleted the created private GitHub project.
+>Note: It also deleted the automated created private GitHub project.
 
 ```sh
 Destroy complete! Resources: 91 destroyed.

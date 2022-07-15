@@ -13,7 +13,7 @@ MAPPED_VOLUME_PATH="/terraform"
 pwd
 cd ${WORKSPACES_PATH}/${PROJECT_NAME}
 
-# 2. Execute apply
+# 2. Execute destroy.sh
 sh destroy.sh
 
 # 3. Navigate to the mapped volume
