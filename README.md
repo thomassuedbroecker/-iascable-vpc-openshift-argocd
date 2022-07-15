@@ -2,7 +2,7 @@
 
 Our objective is to create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/).
 
-The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) framework and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform moduls which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform moduls which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
 
 Surely, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
@@ -28,6 +28,15 @@ Here are the major steps:
 This is our simplified target architecture for our objective to create an customized initial setup in an IBM Cloud environment for GitOps.
 
 * Configuration of `GitOps` in `Red Hat OpenShift`
+  
+  We will use two operators: 
+  * [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator)
+
+    * We will create one [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) with the [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator) operator, that [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) will bin initial configured by an newly created GitHub project configure by a [Cloud Native Toolkit template](https://github.com/cloud-native-toolkit/terraform-tools-gitops/tree/main/template) for GitOps repositories.
+
+  * [Red at OpenShift Pipelines operator](https://catalog.redhat.com/software/operators/detail/5ec54a4628834587a6b85ca5). 
+
+    * There will be no initial setup for a [Tekton pipeline](https://tekton.dev/docs/pipelines/pipelines/) at the moment.
 
   ![](images/SoftwareEverywhere-GitOps.drawio.png)
 
@@ -38,9 +47,9 @@ This is our simplified target architecture for our objective to create an custom
 ## 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
 
 Let us first define which `Software Everywhere` 
-terrafrom modules we are going to use for own custom `BOM`. 
+terrafrom modules we are going to use for own custom `BOM`. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
 
-We have to major areas for our modules:
+In our case we have to major areas for `Terraform` modules we want to use:
 
 1. `Configuration of GitOps`
 2. `IBM Cloud infrastructure`
@@ -67,6 +76,12 @@ We have to major areas for our modules:
 Combine Terraform modules and define some variables in the initial `BOM` file.
 
 > Note: When we going to use variables, we must keep in mind that we must use the name of the variables defined in the Terraform modules and use `alias: ibm-vpc` to define the prefix.
+
+The `BOM` is divided in 3 main sections.
+
+* Virtual Private Cloud
+* Red Hat OpenShift Cluster (ROKS)
+* GitOps
 
 ```yaml
 apiVersion: cloudnativetoolkit.dev/v1alpha1
@@ -158,6 +173,20 @@ colima start
 
 ### Step 2: Build the project based on Bill of Material `BOM` file
 
+* **Version**
+
+```sh
+iascable --version
+```
+
+* Output:
+
+```sh
+2.14.1
+```
+
+* **Build**
+
 ```sh
 iascable build -i my-vpc-roks-argocd-bom.yaml
 ```
@@ -169,6 +198,13 @@ Loading catalog from url: https://modules.cloudnativetoolkit.dev/index.yaml
 Name: my-ibm-vpc-roks-argocd
 Writing output to: ./output
 ```
+
+
+
+
+
+
+
 
 ### Step 3: Copy helper bash scripts into the output folder
 
@@ -193,6 +229,7 @@ sh launch.sh
 ~/src $ ls
 helper-tools-create-container-workspace.sh
 helper-tools-execute-apply-and-backup-result.sh
+helper-tools-execute-destroy-and-delete-backup.sh
 launch.sh
 my-ibm-vpc-roks-argocd
 ```
@@ -273,7 +310,7 @@ The invoked `apply.sh` script will create:
 * several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
 * it creates a GitHub private project which contains you ID for the `cloud native toolkit`
 
-> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-create-bom-file.yaml).
+> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
 
 * Output:
 
