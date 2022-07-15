@@ -33,7 +33,7 @@ This is our simplified target architecture for our objective to create a customi
   We will use two operators: 
   * [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator)
 
-    * We will create one [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) with the [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator) operator, that [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) will bin initial configured by a newly created GitHub project configure by a [Cloud Native Toolkit template](https://github.com/cloud-native-toolkit/terraform-tools-gitops/tree/main/template) for GitOps repositories.
+    * We will create one [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) with the [Red at OpenShift GitOps operator](https://github.com/redhat-developer/gitops-operator), that [ArgoCD instance](https://argo-cd.readthedocs.io/en/stable/) will bin initial configured by a newly created GitHub project configure by a [Cloud Native Toolkit template](https://github.com/cloud-native-toolkit/terraform-tools-gitops/tree/main/template) for GitOps repositories.
 
   * [Red at OpenShift Pipelines operator](https://catalog.redhat.com/software/operators/detail/5ec54a4628834587a6b85ca5). 
 
@@ -48,7 +48,7 @@ This is our simplified target architecture for our objective to create a customi
 ## 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 
 Let us first define which `Software Everywhere` 
-Terraform modules we are going to use for own custom `BOM`. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
+Terraform modules we are going to use for our custom `BOM` file specification. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
 
 In our case we have to major areas for `Terraform` modules we want to use:
 
@@ -61,7 +61,6 @@ In our case we have to major areas for `Terraform` modules we want to use:
   * [GitOps repo `gitops-repo`](https://github.com/cloud-native-toolkit/terraform-tools-gitops) - creates the GitOps Repo
   * [ArgoCD Bootstrap `argocd-bootstrap`](https://github.com/cloud-native-toolkit/terraform-tools-gitops)
 
-  
 ### 2. Cloud infrastructure/services resources related 
 
   * [IBM VPC `ibm-vpc`](https://github.com/cloud-native-toolkit/terraform-ibm-vpc)
