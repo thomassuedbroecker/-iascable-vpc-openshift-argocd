@@ -2,15 +2,15 @@
 
 Our objective is to create a customized initial setup in an IBM Cloud environment for GitOps.
 
-The `Software Everywhere` framework and `IasCable` CLI do provide an awesome way to eliminate writing `Terraform` modules for various clouds such as `IBM Cloud`, `AWS` or `Azure` to create and configure resources. We are going to reuse Terraform moduls which the `Software Everywhere` catalog does provide.
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) framework and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) CLI do provide an awesome way to eliminate writing [`Terraform`](https://www.terraform.io/) modules for various clouds such as [`IBM Cloud`](https://cloud.ibm.com/login), [`AWS`](https://aws.amazon.com/) or [`Azure`](https://azure.microsoft.com/) to create and configure resources. We are going to reuse Terraform moduls which the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide.
 
 Surely, we need to know the needed outline for the cloud architecture which does depend on the cloud environment we are going to use.
 
-As I said the `Software Everywhere` catalog does provide  the reuse of existing Terraform modules, which we use by just combining by writing a "`Bill of Material file`" and configure the variables for the related Terraform modules when it is needed.
+As I said the [`Software Everywhere` catalog](https://modules.cloudnativetoolkit.dev/) does provide  the reuse of existing Terraform modules, which we use by just combining by writing a ["`Bill of Material file`"](https://github.com/cloud-native-toolkit/iascable) and configure the variables for the related Terraform modules ([example link to the GitOps Terraform module](https://github.com/cloud-native-toolkit/terraform-gitops-cp-bas)) when it is needed.
 
-> We will not write any Terraform code, we will only combine existing Terraform modules and configure them!
+> We **will not write any Terraform code**, we will only combine existing Terraform modules and configure them using [IasCable `BOM`](https://github.com/cloud-native-toolkit/iascable) files!
 
-In that scenario we will use IBM Cloud with a `Virtual Private Cloud` and a `Red Hat OpenShift cluster` with `Argo CD installed` and integrated with a GitHub project.
+In that scenario we will use [`IBM Cloud`](https://cloud.ibm.com/login) with a [`Virtual Private Cloud`](https://www.ibm.com/cloud/learn/vpc) and a [`Red Hat OpenShift cluster`](https://www.ibm.com/cloud/openshift) with [`Argo CD installed`](https://github.com/redhat-developer/gitops-operator) and integrated with a GitHub project.
 
 Here are the major steps:
 
