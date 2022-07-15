@@ -20,7 +20,7 @@ Here are the major steps:
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
 5. Use a tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
   > Note: Depending on the container runtime you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is reason why I wrote some helper scripts to simplify the copy and deletion of the resource mapped to a local volume in the current [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example).
-6. Apply the Terraform modules to create environment in IBM Cloud and backup Terraform configuration 
+6. Apply the Terraform modules to create environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) informatino
 7. Destroy the environment on IBM Cloud
 
 ## 1. Define a target outline of the architecture
