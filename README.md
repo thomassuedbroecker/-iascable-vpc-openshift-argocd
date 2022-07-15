@@ -48,7 +48,7 @@ This is our simplified target architecture for our objective to create a customi
 ## 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 
 Let us first define which `Software Everywhere` 
-Terraform modules we are going to use for our custom `BOM` file specification. [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups.
+Terraform modules we are going to use for our custom `BOM` file specification. The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project points to the  [Automated Solutions project](https://github.com/cloud-native-toolkit/automation-solutions) which contains several starting points for various setups, which be used as starting points.
 
 In our case we have to major areas for `Terraform` modules we want to use:
 
