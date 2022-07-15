@@ -226,6 +226,8 @@ sh helper-tools-execute-apply-and-backup-result.sh
 
 * Interactive output:
 
+As we see in the output the values we inserted in our custom `BOM` file are now used as the default values.
+
 ```sh
 Variables can be provided in a yaml file passed as the first argument
 
