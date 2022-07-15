@@ -286,6 +286,13 @@ All these tasks are automated in the helper bash script I wrote.
 sh helper-tools-execute-apply-and-backup-result.sh
 ```
 
+* The scipt [helper-tools-execute-apply-and-backup-result.sh](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-execute-apply-and-backup-result.sh) does following:
+
+  1. Navigates to the create workspace
+  2. Execute `apply.sh` script
+  3. List the created resources
+  4. Copy current start to mapped volume
+
 * Interactive output:
 
 As we see in the output the values we inserted in our custom `BOM` file are now used as the default values.
@@ -325,17 +332,6 @@ Provide a value for 'resource_group_name':
   The name of the resource group
 > default
 ```
-
-The invoked `apply.sh` script will create:
-
-* a temporary `workspace/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
-* a `workspace/my-ibm-vpc-roks-argocd/variables.yaml` file
-* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tf` file
-* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tfvars` file
-* several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
-* it creates a GitHub private project which contains you ID for the `cloud native toolkit`
-
-> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
 
 * Output:
 
@@ -389,7 +385,20 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
     * Preconfigure ArgoCD project
       ![](images/cluster-configuration-03-argocd-project.png)
       
+The invoked `apply.sh` script will create:
+
+* a temporary `workspace/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
+* a `workspace/my-ibm-vpc-roks-argocd/variables.yaml` file
+* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tf` file
+* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tfvars` file
+* several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
+* it creates a GitHub private project which contains you ID for the `cloud native toolkit`
+
+> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
+
 * Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
+
+
 
 > Be aware the `key information` is saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! 
 
@@ -413,6 +422,18 @@ Destroy complete! Resources: 91 destroyed.
 ```
 
 ## 8. Summary
+
+We achived what we wanted to achived, create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/). 
+
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) are powerful.
+
+> As we have see there was no need to write any Terraform module!
+
+Yes, when you are going to define you own "Bill of Material `BOM`" you need to get familiar with the related modules related to your target architeture, when you want to customize it to your needs. 
+
+But, as I said: There was no need to write own Terraform modules in our case.
+
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) project needs some more documentation in the future, I like the power of it and it is under [Apache-2.0 license](https://github.com/cloud-native-toolkit/software-everywhere/blob/main/LICENSE), which means you can use it as your starting point or contribute.
 
 
 
