@@ -286,7 +286,7 @@ All these tasks are automated in the helper bash script I wrote.
 sh helper-tools-execute-apply-and-backup-result.sh
 ```
 
-* The scipt [helper-tools-execute-apply-and-backup-result.sh](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-execute-apply-and-backup-result.sh) does following:
+* The script [helper-tools-execute-apply-and-backup-result.sh](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-execute-apply-and-backup-result.sh) does following:
 
   1. Navigates to the create workspace
   2. Execute `apply.sh` script
@@ -398,9 +398,7 @@ The invoked `apply.sh` script will create:
 
 * Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
 
-
-
-> Be aware the `key information` is saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! 
+> Be aware that the `IBM CLoud access key information and GitHub access token` are saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! Don't share this in a public GitHub repository.
 
 
 ## 7. Destroy the environment on IBM Cloud
