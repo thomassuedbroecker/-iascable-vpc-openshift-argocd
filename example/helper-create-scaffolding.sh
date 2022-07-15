@@ -9,6 +9,7 @@ iascable build -i my-vpc-roks-argocd-bom.yaml
 # 2. Copy helper bash scipts into the output folder
 cp helper-tools-create-container-workspace.sh ./output
 cp helper-tools-execute-apply-and-backup-result.sh ./output
+cp helper-tools-execute-destroy-and-delete-backup.sh ./output
 
 # 3. Navigate to created 'scaffolding'
 cd output

@@ -5,23 +5,22 @@
 # ************************************
 
 PROJECT_NAME="my-ibm-vpc-roks-argocd"
-BACKUP_PATH_LOCAL_MACHINE="/home/devops/src"
-ROOT_PATH="/home/devops"
-
+WORKSPACES_PATH="/workspaces"
+MAPPED_VOLUME_PATH="/terraform"
 
 # 1. Navigate to workspace
 pwd
-cd ${ROOT_PATH}/workspace/${PROJECT_NAME}
+cd ${WORKSPACES_PATH}/${PROJECT_NAME}
 
 # 2. Execute apply
 sh apply.sh
 ls -a ./terraform
 
 # 3. List the created resources
-cd ${ROOT_PATH}/workspace/${PROJECT_NAME}/terraform 
+cd ${WORKSPACES_PATH}/${PROJECT_NAME}/terraform 
 terraform state list
 
 # 4. Copy current start to mapped volume
-cp -Rf ${ROOT_PATH}/workspace/${PROJECT_NAME} ${BACKUP_PATH_LOCAL_MACHINE}
+cp -Rf ${WORKSPACES_PATH}/${PROJECT_NAME} ${MAPPED_VOLUME_PATH}
 
 
