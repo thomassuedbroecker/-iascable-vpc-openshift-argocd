@@ -4,21 +4,22 @@
 # To be executed in the `tool container`!
 # ************************************
 
+# Basic global variables
 PROJECT_NAME="my-ibm-vpc-roks-argocd"
-BACKUP_PATH="src/${PROJECT_NAME}/terraform"
+WORKSPACES_PATH="/workspaces"
+MAPPED_VOLUME_PATH="/terraform"
 
 # 1. Navigate to workspace
 pwd
-cd ../workspace/${PROJECT_NAME}
+cd ${WORKSPACES_PATH}/${PROJECT_NAME}
 
 # 2. Execute apply
 sh destroy.sh
 
-
 # 3. Navigate to the mapped volume
-cd ${BACKUP_PATH}
+cd ${MAPPED_VOLUME_PATH}
 
 # 4. Copy the state to the mapped volume
-cp -Rf ../workspace/${PROJECT_NAME} .
+cp -Rf ${WORKSPACES_PATH}/${PROJECT_NAME} ${MAPPED_VOLUME_PATH}
 
 
