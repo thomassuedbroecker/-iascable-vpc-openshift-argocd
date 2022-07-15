@@ -14,7 +14,7 @@ In that scenario we will use [`IBM Cloud`](https://cloud.ibm.com/login) with a [
 
 These are the major sections:
 
-1. Define a target outline of the architecture
+1. Define an outline of the target architecture
 2. Identify the needed `Software Everywhere` Terraform modules for the target outline
 3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `IasCable` project
@@ -24,7 +24,7 @@ These are the major sections:
 7. Destroy the environment on IBM Cloud.
 8. Summary
 
-## 1. Define a target outline of the architecture
+## 1. Define an outline of the target architecture
 
 This is our simplified target architecture for our objective to create a customized setup in an IBM Cloud environment for GitOps.
 
