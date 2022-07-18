@@ -24,7 +24,7 @@ These are the major sections:
 7. Destroy the environment on IBM Cloud.
 8. Summary
 
-You can access source code in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd) I created. The project is under [`Apache-2.0 license`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/LICENSE).
+You can the access source code in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd) I created. The project is under [`Apache-2.0 license`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/LICENSE).
 
 ```sh
 git clone https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd.git
