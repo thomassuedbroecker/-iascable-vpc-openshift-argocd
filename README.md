@@ -18,8 +18,8 @@ These are the major sections:
 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 3. Write a customized `BOM` to combine the modules
 4. Use `IasCable` to create the scaffolding for a `Terraform` project
-5. Use the `IasCable` tools container to execute the `Terraform` modules
-  > Note: Depending on the _[container engine](https://github.com/abiosoft/colima)_ you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is the reason why I wrote some helper scripts to simplify the copy and deletion of the Terraform code mapped to the local volume of our computer. You can find the in the current helper bash automation script in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example). `IasCable` does suggest to use [Docker](https://www.docker.com/) or [Colima](https://github.com/abiosoft/colima) 
+5. Use the [`IasCable` tools container](https://quay.io/repository/cloudnativetoolkit/cli-tools?tab=tags) to execute the `Terraform` modules
+  > Note: Depending on the _[container engine](https://github.com/abiosoft/colima)_ you are going to use on your computer, you maybe have to copy the `Terraform` project inside the running tools container, because of access right restrictions to access mapped local volumes to the running containers. That is the reason why I wrote some helper scripts to simplify the copy and deletion of the Terraform code mapped to the local volume of our computer. You can find the in the current helper bash automation script in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example). `IasCable` does suggest to use [Docker](https://www.docker.com/) or [Colima](https://github.com/abiosoft/colima) 
 6. Apply the Terraform modules to create the environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) to the local computer.
 7. Destroy the environment on IBM Cloud.
 8. Summary
