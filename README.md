@@ -446,7 +446,7 @@ Destroy complete! Resources: 91 destroyed.
 
 ## 8. Summary
 
-We achieved what we wanted to achieved, create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/). 
+We achieved what we wanted to achieve, create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/). 
 
 The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) are powerful.
 
