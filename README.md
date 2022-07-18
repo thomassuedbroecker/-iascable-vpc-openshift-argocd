@@ -452,11 +452,11 @@ The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-eve
 
 > As we have seen there was no need to write any Terraform module!
 
-Yes, when you are going to define you own "Bill of Material `BOM`" you need to get familiar with the related modules related to your target architecture, when you want to customize it to your needs. 
+Yes, when you are going to define you own "Bill of Material `BOM` file" you need to get familiar with the related modules related to your target architecture, when you want to customize it to your needs. 
 
 But, as I said: There was no need to write own Terraform modules in our case.
 
-The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) project needs some more documentation in the future, I like the power of it and it is under [Apache-2.0 license](https://github.com/cloud-native-toolkit/software-everywhere/blob/main/LICENSE), which means you can use it as your starting point or contribute.
+The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) project needs some more documentation in the future, I like the power of it and it is under [Apache-2.0 license](https://github.com/cloud-native-toolkit/software-everywhere/blob/main/LICENSE), which means you can use it as your starting point for Software Everywhere with Terraform and contribute to the project.
 
 
 
