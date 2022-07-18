@@ -17,9 +17,9 @@ These are the major sections:
 1. Define an outline of the target architecture
 2. Identify the needed `Software Everywhere` Terraform modules for the target architecture
 3. Write a customized `BOM` to combine the modules
-4. Use `IasCable` to create the scaffolding for a `IasCable` project
-5. Use the tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
-  > Note: Depending on the container runtime you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is the reason why I wrote some helper scripts to simplify the copy and deletion of the Terraform code mapped to the local volume of our computer. You can find the in the current helper bash automation script in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example).
+4. Use `IasCable` to create the scaffolding for a `Terraform` project
+5. Use the `IasCable` tools container to execute the `Terraform` modules
+  > Note: Depending on the _[container engine](https://github.com/abiosoft/colima)_ you are going to use on your computer, you maybe have to copy the `IasCable` project inside the running container, because of access right restrictions to access mapped local volumes to the running containers. That is the reason why I wrote some helper scripts to simplify the copy and deletion of the Terraform code mapped to the local volume of our computer. You can find the in the current helper bash automation script in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/tree/main/example). `IasCable` does suggest to use [Docker](https://www.docker.com/) or [Colima](https://github.com/abiosoft/colima) 
 6. Apply the Terraform modules to create the environment in IBM Cloud and backup the [Terraform state](https://www.terraform.io/language/state) to the local computer.
 7. Destroy the environment on IBM Cloud.
 8. Summary
@@ -71,13 +71,13 @@ In our case we have two major areas for `Terraform` modules we want to use:
 
 ## 3. Write a customized `BOM` to combine the modules
 
-### Step 1: Write the Bill of Material `BOM` file
+### Step 1: Write the **Bill of Material** `BOM` file
 
-Now we combine the existing `Terraform` modules and we define some of the variables in the `BOM` file which we going to specif.
+Now we combine the existing `Terraform` modules we got from the `Software Everywhere catalog` and we specify the variables in the `BOM` file we need to reflect our target architecture.
 
-> Note: When we going to use variables, we must keep in mind that we need to use the name of the variables defined in the `Terraform modules` and should use `alias: ibm-vpc` to define as prefix in the `BOM` file.
+> Note: When we going to use these variables, we must keep in mind that we need to use the names of the variables defined in the `Terraform modules` and we should use `alias: ibm-vpc` to define the  prefix in the `BOM` file.
 
-The `BOM` is divided in 3 main sections.
+The [`BOM` file](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/my-vpc-roks-argocd-bom.yaml) for our architecture is divided in 3 main sections.
 
 * Virtual Private Cloud
 * Red Hat OpenShift Cluster (ROKS)
@@ -163,7 +163,7 @@ spec:
           value: "iascable-gitops"
 ```
 
-## 4. Use `IasCable` to create the scaffolding for a `IasCable` project
+## 4. Use `IasCable` to create the scaffolding for a `Terraform` project
 
 ### Step 1: Install [colima](https://github.com/abiosoft/colima) container engine and start the container engine
 
@@ -174,7 +174,7 @@ brew install docker colima
 colima start
 ```
 
-### Step 2: Build the project based on Bill of Material `BOM` file
+### Step 2: Create a `terraform project` based on Bill of Material `BOM` file
 
 * **Version**
 
@@ -203,12 +203,6 @@ Writing output to: ./output
 ```
 
 
-
-
-
-
-
-
 ### Step 3: Copy helper bash scripts into the output folder
 
 ```sh
@@ -230,13 +224,13 @@ nano launch.sh
 
 2. Delete the `-u "${UID}"` parameter
 
-* Before
+  * Before
 
   ```sh
   ${DOCKER_CMD} run -itd --name ${CONTAINER_NAME}    -u "${UID}"    -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
   ```
 
-* After the change
+  * After the change
 
   ```sh
   ${DOCKER_CMD} run -itd --name ${CONTAINER_NAME} -v "${SRC_DIR}:/terraform"    -v "workspace-${AUTOMATION_BASE}:/workspaces"    ${ENV_FILE}    -w /terraform    ${DOCKER_IMAGE}
@@ -248,7 +242,7 @@ nano launch.sh
   sh launch.sh
   ```
 
-## 5. Use the tools container to execute the Terraform modules in the scaffolding project outline of the `IasCable` project
+## 5. Use the `IasCable` tools container to execute the `Terraform` modules
 
 ### Step 1 (inside the container): In the running container verify the mapped resources 
 
