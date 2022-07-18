@@ -267,8 +267,6 @@ Folling tasks are automated in the helper bash script [`helper-tools-create-cont
 1. Creates a `workspace` folder
 2. Copies the `Terrafrom project` from the mapped volume folder to the workspace folder
 
-
-
 * Output:
 
 You can see the copied `Terrafrom project` folder inside the container.
@@ -298,6 +296,13 @@ sh helper-tools-execute-apply-and-backup-result.sh
 
 As we see in the output the values we inserted in our custom `BOM` file are now used as the default values.
 
+In our example we only need to insert the values for:
+
+* gitops-repo_token
+* ibmcloud_api_key
+* resource_group_name
+* region
+
 ```sh
 Variables can be provided in a yaml file passed as the first argument
 
@@ -315,7 +320,7 @@ Provide a value for 'gitops-repo_username':
 > (thomassuedbroecker) 
 Provide a value for 'gitops-repo_token':
   The personal access token used to access the repository
-> 
+> XXX
 > Provide a value for 'ibmcloud_api_key':
 > XXX
 Provide a value for 'region':
