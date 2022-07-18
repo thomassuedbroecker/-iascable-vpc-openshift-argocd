@@ -67,3 +67,4 @@ example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397b
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_admin_k8sconfig/admin.pem
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_admin_k8sconfig/config.yml
 example/output/my-ibm-vpc-roks-argocd/terraform/.kube/30dd192ad75c11e4584c88397bde6359f1ecbdc40a40e274f2e433084785bc54_tsued-gitops_k8sconfig/config.yml
+.DS_Store

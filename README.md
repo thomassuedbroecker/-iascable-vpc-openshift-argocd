@@ -398,7 +398,7 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
     * Preconfigure ArgoCD project
       ![](images/cluster-configuration-03-argocd-project.png)
       
-The invoked `apply.sh` script will create following:
+The invoked `apply.sh` script will create following files or folders:
 
 * Inside the tools container:
 
