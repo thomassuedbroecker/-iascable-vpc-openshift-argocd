@@ -24,6 +24,13 @@ These are the major sections:
 7. Destroy the environment on IBM Cloud.
 8. Summary
 
+You can access source code in the [GitHub project](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd) I created. The project is under [`Apache-2.0 license`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/LICENSE).
+
+```sh
+git clone https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd.git
+cd example
+```
+
 ## 1. Define an outline of the target architecture
 
 This is our simplified target architecture for our objective to create a customized setup in an IBM Cloud environment for GitOps.
@@ -167,7 +174,7 @@ spec:
 
 ### Step 1: Install [colima](https://github.com/abiosoft/colima) container engine and start the container engine
 
-Example for an installation on macOS.
+Example for an installation of [colima](https://github.com/abiosoft/colima) on macOS.
 
 ```sh
 brew install docker colima
@@ -262,14 +269,14 @@ sh helper-tools-create-container-workspace.sh
 ls /workspaces
 ```
 
-Folling tasks are automated in the helper bash script [`helper-tools-create-container-workspace.sh`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-create-container-workspace.sh) I wrote.
+The following tasks are automated in the helper bash script [`helper-tools-create-container-workspace.sh`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-create-container-workspace.sh) I wrote.
 
 1. Creates a `workspace` folder
-2. Copies the `Terrafrom project` from the mapped volume folder to the workspace folder
+2. Copies the `Terraform project` from the mapped volume folder to the workspace folder
 
 * Output:
 
-You can see the copied `Terrafrom project` folder inside the container.
+You can see the copied `Terraform project` folder inside the container.
 
 ```sh
 my-ibm-vpc-roks-argocd
@@ -287,7 +294,7 @@ sh helper-tools-execute-apply-and-backup-result.sh
 
 * The script [helper-tools-execute-apply-and-backup-result.sh](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-execute-apply-and-backup-result.sh) does following:
 
-  1. Navigates to the create workspace
+  1. Navigate to the created workspace
   2. Execute `apply.sh` script
   3. List the created resources
   4. Copy current start to mapped volume
@@ -402,20 +409,18 @@ The invoked `apply.sh` script will create following:
   * several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
   * Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
 
-  > Be aware that the `IBM CLoud access key information and GitHub access token` are saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! **Don't share this in a public GitHub repository.**
+  > Be aware that the `IBM Cloud access key information and GitHub access token` are saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! **Don't share this in a public GitHub repository.**
 
 * On GitHub
 
   * it creates a GitHub private project which contains preconfigure ArgoCD resource provided by `cloud native toolkit`
 
-> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
-
-
+> Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find an example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
 
 
 ## 7. Destroy the environment on IBM Cloud
 
-### Step 1 (inside the container): Destory the created IBM Cloud resources
+### Step 1 (inside the container): Destroy the created IBM Cloud resources
 
 All these tasks are automated in the helper bash script I wrote.
 
@@ -441,13 +446,13 @@ Destroy complete! Resources: 91 destroyed.
 
 ## 8. Summary
 
-We achived what we wanted to achived, create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/). 
+We achieved what we wanted to achieved, create a customized initial setup in an [`IBM Cloud`](https://cloud.ibm.com/login) environment for [GitOps](https://www.ibm.com/garage/method/practices/run/gitops/). 
 
 The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) are powerful.
 
 > As we have see there was no need to write any Terraform module!
 
-Yes, when you are going to define you own "Bill of Material `BOM`" you need to get familiar with the related modules related to your target architeture, when you want to customize it to your needs. 
+Yes, when you are going to define you own "Bill of Material `BOM`" you need to get familiar with the related modules related to your target architecture, when you want to customize it to your needs. 
 
 But, as I said: There was no need to write own Terraform modules in our case.
 
