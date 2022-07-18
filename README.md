@@ -450,7 +450,7 @@ We achieved what we wanted to achieve, create a customized initial setup in an [
 
 The [`Software Everywhere`](https://github.com/cloud-native-toolkit/software-everywhere) project and [`IasCable`](https://github.com/cloud-native-toolkit/iascable) are powerful.
 
-> As we have see there was no need to write any Terraform module!
+> As we have seen there was no need to write any Terraform module!
 
 Yes, when you are going to define you own "Bill of Material `BOM`" you need to get familiar with the related modules related to your target architecture, when you want to customize it to your needs. 
 
