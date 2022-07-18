@@ -391,20 +391,26 @@ Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
     * Preconfigure ArgoCD project
       ![](images/cluster-configuration-03-argocd-project.png)
       
-The invoked `apply.sh` script will create:
+The invoked `apply.sh` script will create following:
 
-* a temporary `workspace/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
-* a `workspace/my-ibm-vpc-roks-argocd/variables.yaml` file
-* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tf` file
-* a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tfvars` file
-* several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
-* it creates a GitHub private project which contains you ID for the `cloud native toolkit`
+* Inside the tools container:
+
+  * a temporary `workspace/my-ibm-vpc-roks-argocd/variables.yaml.tmp` file
+  * a `workspace/my-ibm-vpc-roks-argocd/variables.yaml` file
+  * a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tf` file
+  * a `workspace/my-ibm-vpc-roks-argocd/terraform/variables.tfvars` file
+  * several folders `.kube`, `.terraform`, `.tmp`, `bin2`, `docs`
+  * Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
+
+  > Be aware that the `IBM CLoud access key information and GitHub access token` are saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! **Don't share this in a public GitHub repository.**
+
+* On GitHub
+
+  * it creates a GitHub private project which contains preconfigure ArgoCD resource provided by `cloud native toolkit`
 
 > Note: Here you can sample of the content of an example for a generated variables.yaml file [link](/overview-variables.md) and here you can find a example for the created [BOM file](/example/example-auto-created-bom-file.yaml).
 
-* Then it creates a `terraform.tfvars` file based on the entries you gave and executes init and apply command from Terraform.
 
-> Be aware that the `IBM CLoud access key information and GitHub access token` are saved in text format in the `output/my-ibm-vpc-roks-argocd/terraform/terraform.tfvars` file! Don't share this in a public GitHub repository.
 
 
 ## 7. Destroy the environment on IBM Cloud
