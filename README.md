@@ -257,7 +257,10 @@ my-ibm-vpc-roks-argocd
 
 ### Step 2 (inside the container): Create a workspace folder in your container and copy your `IasCable` project into it
 
-All these tasks are automated in the helper bash script I wrote.
+All these tasks are automated in the helper bash script [`helper-tools-create-container-workspace.sh`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-create-container-workspace.sh) I wrote.
+
+  1. Creates a `workspace` folder
+  2. Copies the `Terrafrom project` from the mapped volume folder to the workspace folder
 
 ```sh
 sh helper-tools-create-container-workspace.sh
@@ -266,7 +269,7 @@ ls /workspaces
 
 * Output:
 
-You can see the copied `IasCable` project folder inside the container.
+You can see the copied `Terrafrom project` folder inside the container.
 
 ```sh
 my-ibm-vpc-roks-argocd
