@@ -172,6 +172,12 @@ spec:
           value: "iascable-gitops"
 ```
 
+That will result later in flowing overall depencencies of the used `Terraform` modules, given in provide a created `dependencies.dot` file later. 
+
+![](images/dependency-graph.png)
+
+> Note: You can use [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline) for the visualization.
+
 ## 4. Use `IasCable` to create the scaffolding for a `Terraform` project
 
 ### Step 1: Install [colima](https://github.com/abiosoft/colima) container engine and start the container engine
@@ -268,7 +274,7 @@ my-ibm-vpc-roks-argocd
 
 ```sh
 sh helper-tools-create-container-workspace.sh
-ls /workspaces
+ls /home/devops/workspace
 ```
 
 The following tasks are automated in the helper bash script [`helper-tools-create-container-workspace.sh`](https://github.com/thomassuedbroecker/iascable-vpc-openshift-argocd/blob/main/example/helper-tools-create-container-workspace.sh) I wrote.
