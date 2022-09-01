@@ -262,7 +262,7 @@ nano launch.sh
 ### Step 1 (inside the container): In the running container verify the mapped resources 
 
 ```sh
-~/src $ ls
+~/terraform $ ls
 helper-tools-create-container-workspace.sh
 helper-tools-execute-apply-and-backup-result.sh
 helper-tools-execute-destroy-and-delete-backup.sh
